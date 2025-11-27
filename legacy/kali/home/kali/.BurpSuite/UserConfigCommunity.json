@@ -1,0 +1,17 @@
+{
+    "user_options":{
+        "misc":{
+            "show_learn_tab":false
+        },
+        "proxy":{
+            "http_history":{
+                "sort_column":"#",
+                "sort_order":"descending"
+            },
+            "websockets_history":{
+                "sort_column":"#",
+                "sort_order":"descending"
+            }
+        }
+    }
+}
