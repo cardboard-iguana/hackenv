@@ -1,3 +1,10 @@
+# Ignore various application/OS graffiti files
+.DS_Store
+.#*
+._*
+*~
+*.swp
+
 # Ignore build outputs from performing a nix-build or `nix build` command
 result
 result-*
