@@ -14,3 +14,5 @@ python313Packages.shodan
 # Nix
 
 openvpn
+python3
+nodejs
