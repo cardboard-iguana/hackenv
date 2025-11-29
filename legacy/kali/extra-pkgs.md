@@ -16,3 +16,7 @@ python313Packages.shodan
 openvpn
 python3
 nodejs
+
+# Variables
+
+PYTHONWARNINGS="ignore"
