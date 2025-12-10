@@ -46,16 +46,21 @@
           nodejs
           pnpm
 
+          #### Common build dependencies ####
+          cmake
+
           #### Other tools ####
+          android-tools
+          curlFull
+          goose-cli
           openvpn
+          sqlite
         ];
 
         shellHook = ''
-          echo "Hello world!"
-          echo "Node is: `${pkgs.nodejs}/bin/node --version`"
+          echo "Welcome to your cyber security hacking environment!"
         '';
 
-        # TODO: Allow Python packages to be added using requirements.txt (watch this! but is there a better format? maybe `uv`?)
         # TODO: Allow Node packages to be added using package.json (watch this! but is there a better format? maybe `pnpm`?)
         # TODO: Install `hardhat` via above (maybe https://gist.github.com/mccutchen/e9c0ba406d4b89147b97c2329d65d740)
         # TODO: Can I alias `pnpm` to `npm`? Should I? (Maybe I should install `corepack`?)
