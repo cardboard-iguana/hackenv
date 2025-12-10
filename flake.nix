@@ -1,5 +1,5 @@
 {
-  description = "Reproducible pentest environment";
+  description = "Reproducible cyber security hacking environment";
 
   # Input streams (flakes, not variables!)
   #
