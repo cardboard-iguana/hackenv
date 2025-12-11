@@ -46,10 +46,13 @@
           nodejs
           pnpm
 
+          #### Ruby ####
+          ruby
+
           #### Common build dependencies ####
           cmake
 
-          #### Other tools ####
+          #### Useful tools ####
           android-tools
           curlFull
           goose-cli
