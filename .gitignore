@@ -7,10 +7,12 @@
 
 # Ignore lock files (should only be used in template git repo)
 flake.lock
-requirements.txt
+Gemfile
 package.json
 package-lock.json
-Gemfile
+pnpm-lock.yaml
+requirements.txt
+yarn.lock
 
 #### Standard GitHub Nix .gitignore ####################################
 

@@ -57,11 +57,12 @@
           curlFull
           goose-cli
           openvpn
+          solc-select
           sqlite
         ];
 
         shellHook = ''
-          echo "Building cyber security hacking environment for {{ENGAGEMENT_NAME_FOR_HUMANS}}..."
+          echo "engagement: {{ENGAGEMENT_NAME_FOR_HUMANS}}"
         '';
 
         # TODO: Allow Node packages to be added using package.json (watch this! but is there a better format? maybe `pnpm`?)
