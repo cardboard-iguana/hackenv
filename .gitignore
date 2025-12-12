@@ -7,12 +7,9 @@
 
 # Ignore lock files (should only be used in template git repo)
 flake.lock
-Gemfile
-package.json
-package-lock.json
+Gemfile.lock
 pnpm-lock.yaml
-requirements.txt
-yarn.lock
+requirements.lock
 
 # Don't track files in appdata/goose, except for those in config (should only be used in template git repo)
 appdata/goose/**

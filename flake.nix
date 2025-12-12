@@ -61,12 +61,6 @@
           sqlite
         ];
 
-        shellHook = ''
-          echo "engagement: {{ENGAGEMENT_NAME_FOR_HUMANS}}"
-        '';
-
-        # TODO: Allow Node packages to be added using package.json (watch this! but is there a better format? maybe `pnpm`?)
-        # TODO: Install `hardhat` via above (maybe https://gist.github.com/mccutchen/e9c0ba406d4b89147b97c2329d65d740)
         # TODO: Replicate core packages from Disposable Kali
         # TODO: Figure out how to move as many package configurations into the environment as possible
         #         - Burp Suite
