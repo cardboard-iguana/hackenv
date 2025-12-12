@@ -1,2 +1,16 @@
 GOOSE_CLI_THEME: "ansi"
 GOOSE_MODE: "approve"
+
+extensions:
+  developer:
+    bundled: true
+    enabled: true
+    name: developer
+    timeout: 300
+    type: builtin
+  memory:
+    bundled: true
+    enabled: true
+    name: memory
+    timeout: 300
+    type: builtin

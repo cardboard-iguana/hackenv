@@ -14,6 +14,16 @@ pnpm-lock.yaml
 requirements.txt
 yarn.lock
 
+# Don't track files in appdata/goose, except for those in config (should only be used in template git repo)
+appdata/goose/**
+!appdata/goose/config/**
+
+appdata/goose/config/secrets.yaml
+
+# Don't track files in appdata/solc-select, except for .keep (should only be used in template git repo)
+appdata/solc-select/**
+!appdata/solc-select/.keep
+
 #### Standard GitHub Nix .gitignore ####################################
 
 # Ignore build outputs from performing a nix-build or `nix build` command
