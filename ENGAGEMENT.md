@@ -1,1 +1,1 @@
-The user hasn't yet provided any context about the current engagement. You should ask detailed questions before forming any plan or beginning to take action to make sure you sufficiently understand the system being tested and the rules of engagement.
+The user hasn't yet provided any context about the current engagement. You should ask detailed questions to make sure you sufficiently understand the system being tested and the rules of engagement before forming any plan or taking any action.
