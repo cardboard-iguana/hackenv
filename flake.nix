@@ -36,39 +36,48 @@
     #
     devShells = forEachSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = with pkgs; [
-          #### Python tooling ####
-          (pkgs.python3.withPackages (pythonPackages: [
-            pythonPackages.shodan
-          ]))
+        packages = with pkgs;
+          [
+            #### Python tooling ####
+            (pkgs.python3.withPackages (pythonPackages: [
+              pythonPackages.shodan
+            ]))
 
-          #### Node.js ####
-          nodejs
-          pnpm
+            #### Node.js ####
+            nodejs
+            pnpm
 
-          #### Ruby ####
-          ruby
+            #### Ruby ####
+            ruby
 
-          #### Common build dependencies ####
-          cmake
+            #### Common build dependencies ####
+            cmake
 
-          #### Useful tools ####
-          android-tools
-          curlFull
-          goose-cli
-          openvpn
-          solc-select
-          sqlite
-        ];
+            #### Useful tools ####
+            android-tools
+            curlFull
+            goose-cli
+            openvpn
+            solc-select
+            sqlite
+          ]
+          ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+            ungoogled-chromium # Must install using Homebrew on macOS
+          ];
 
         # TODO: Replicate core packages from Disposable Kali
         # TODO: Figure out how to move as many package configurations into the environment as possible
+        #         - Ungoogled-Chromium
         #         - Burp Suite
+        #         - PostgreSQL
         #         - ...
-        # TODO: Figure out if it's possible to start/stop Asciinema on direnv init/deinit
-        # TODO: Look into direnv for things like Metasploit Postgress DB
-        # TODO: Create backup script (exclude .direnv and node_modules... maybe I can just use my .gitignore?)
-        # TODO: Create init.sh script
+        # TODO: Create helper scripts
+        #         - ungoogled-chromium / chromium / chrome / burpbrowser
+        #         - pg_start / pg_stop
+        #         - msfconsole (start/stop PostgreSQL if necessary, use .direnv/lock/msfconsole and .direnv/lock/postgresql.pid to track)
+        #         - wrapShell (start/stop PostgreSQL if necessary, handle Asciinema, multi-session aware, use .direnv/lock/wrapShell and .direnv/lock/postgresql.pid to track)
+        #         - backup-engagement (git checkpoint, backup environment while exclude everything in .gitignore)
+        # TODO: Create init.sh script (set placeholders, copy directory, replace placeholders, fix .gitignore, init git)
       };
     });
   };
