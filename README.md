@@ -16,11 +16,11 @@ Automatically configure directory-based hacking / pentest environments. The succ
 ```bash
 git clone https://github.com/cardboard-iguana/hackenv.git
 cd hackenv
-./init.sh "Your engagement name"
+./init.sh "My Engagement"
 
-direnv allow ~/engagements/your_engagement_name/.envrc
+direnv allow ~/engagements/my_engagement/.envrc
 
-~/engagements/your_engagement_name/scripts/wrapShell # OR JUST: cd ~/engagements/your_engagement_name
+~/engagements/my_engagement/scripts/wrapShell # OR JUST: cd ~/engagements/my_engagement
 ```
 
 The `wrapShell` script handles automatically starting and stopping PostgreSQL and Asciinema, and is intended just to make console logging and `msfconsole` a little faster / less painful. Note that the `msfconsole` wrapper will also handle PostgreSQL startup and shutdown (if necessary).
