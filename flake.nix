@@ -40,6 +40,7 @@
           [
             #### Python tooling ####
             (pkgs.python3.withPackages (pythonPackages: [
+              pythonPackages.impacket
               pythonPackages.shodan
             ]))
 
@@ -56,22 +57,49 @@
             #### Useful tools ####
             aircrack-ng
             android-tools
+            arping
+            cewl
             curlFull
+            enum4linux-ng
+            evil-winrm
+            gdb
+            gobuster
             goose-cli
+            hashcat
+            hashcat-utils
+            inetutils
+            john
+            jq
+            kerbrute
+            masscan
+            mimikatz
             openvpn
+            recon-ng
+            ripgrep
+            socat
             solc-select
             sqlite
+            thc-hydra
+            yq
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+            ike-scan
+            net-tools
+
             # The following packages must be installed using Homebrew on macOS...
             #
             burpsuite # Breaks nix evaluation (Linux-specific build) on macOS
           ];
 
         # TODO: Replicate core packages from Disposable Kali
-        # TODO: Figure out how to move as many package configurations into the environment as possible
-        #         - PostgreSQL
-        #         - ...
+        #         - metasploit + postgresql
+        #         - (currently done reviewing tools from notes through "N")
+        #         - (which version of netcat in nixpkgs has the -e flag?)
+        #         - netexec
+        #         - nmap
+        #         - responder
+        #         - sqlmap
+        #         - wireshark
         # TODO: Create helper scripts
         #         - pg_start / pg_stop
         #         - msfconsole (start/stop PostgreSQL if necessary, use .direnv/lock/msfconsole and .direnv/lock/postgresql.pid to track)
