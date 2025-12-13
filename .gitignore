@@ -6,13 +6,13 @@
 *.swp
 
 # Ignore backups
-backups
+/backups/
 
 # Ignore secrets
 .env
 .env.*
 !.env.example
-appdata/goose/config/secrets.yaml
+/appdata/goose/config/secrets.yaml
 
 #### Ignore in template git repo but not live engagements ##############
 
@@ -30,7 +30,15 @@ uv.lock
 yarn.lock
 
 # Per-engagement application data
-appdata/solc-select
+/appdata/android/
+/appdata/BurpSuite/
+/appdata/lesshst
+/appdata/macOS/
+/appdata/solc-select/
+/appdata/sqlite_history
+
+# Ignore artifacts
+/artifacts/
 
 #### Standard GitHub Nix .gitignore ####################################
 

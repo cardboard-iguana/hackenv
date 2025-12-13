@@ -1,15 +1,15 @@
 # hackenv
 
 > [!warning]
-> This project is (obviously) just coming together. It is not yet fully functional.
+> This project is just coming together. It is not yet fully functional.
 
-The successor of [Disposable Kali](https://github.com/cardboard-iguana/disposable-kali). Automatically configure directory-based hacking / pentest environments.
+Automatically configure directory-based hacking / pentest environments. The successor of [Disposable Kali](https://github.com/cardboard-iguana/disposable-kali).
 
 ## Prerequisits
 
 - [Determinate Nix](https://determinate.systems/nix-installer/) (recommended) _or_ [Nix](https://nixos.org/download/) with [flakes enabled](https://nixos.wiki/wiki/Flakes)
 - [`direnv`](https://direnv.net/) ([`nix-direnv`](https://github.com/nix-community/nix-direnv?tab=readme-ov-file#installation) is recommended but not required)
-- [Ungoogled Chromium](https://ungoogled-software.github.io/) **(macOS only)**
+- [Burp Suite](https://portswigger.net/burp) **(macOS only)**
 
 ## Quick start
 

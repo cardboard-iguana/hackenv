@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine Burp Suite executable
+#
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    BURP_SUITE_PATH="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/macOS/Applications/BurpSuite.app/Contents/MacOS/JavaApplicationStub
+else
+    BURP_SUITE_PATH="$(unmask_executable burpsuite)"
+fi
+
+# Launch Burp Suite
+#
+if [[ -n "$BURP_SUITE_PATH" ]]; then
+    exec "$BURP_SUITE_PATH" --data-dir="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/BurpSuite \
+        --user-config-file="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/BurpSuite/UserConfig.json \
+        --disable-auto-update "$@"
+else
+    echo "Real Burp Suite executable not found!"
+    exit 1
+fi

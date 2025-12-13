@@ -50,10 +50,11 @@
             #### Ruby ####
             ruby
 
-            #### Common build dependencies ####
+            #### Build dependencies ####
             cmake
 
             #### Useful tools ####
+            aircrack-ng
             android-tools
             curlFull
             goose-cli
@@ -62,17 +63,16 @@
             sqlite
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
-            ungoogled-chromium # Must install using Homebrew on macOS
+            # The following packages must be installed using Homebrew on macOS...
+            #
+            burpsuite # Breaks nix evaluation (Linux-specific build) on macOS
           ];
 
         # TODO: Replicate core packages from Disposable Kali
         # TODO: Figure out how to move as many package configurations into the environment as possible
-        #         - Ungoogled-Chromium
-        #         - Burp Suite
         #         - PostgreSQL
         #         - ...
         # TODO: Create helper scripts
-        #         - ungoogled-chromium / chromium / chrome / burpbrowser
         #         - pg_start / pg_stop
         #         - msfconsole (start/stop PostgreSQL if necessary, use .direnv/lock/msfconsole and .direnv/lock/postgresql.pid to track)
         #         - wrapShell (start/stop PostgreSQL if necessary, handle Asciinema, multi-session aware, use .direnv/lock/wrapShell and .direnv/lock/postgresql.pid to track)
