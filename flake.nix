@@ -125,8 +125,6 @@
           ];
 
         # TODO: Look into setting variables for local configuration data (where possible)
-        #         - caido
-        #         - linux-exploit-suggester
         #         - metasploit
         #         - mitmproxy
         #         - netexec

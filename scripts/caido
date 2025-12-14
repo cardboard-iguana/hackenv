@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine Caido executable
+#
+CAIDO_PATH="$(unmask_executable caido)"
+
+# Launch Caido
+#
+if [[ -n "$CAIDO_PATH" ]]; then
+    exec "$CAIDO_PATH" --data-path "$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/caido "$@"
+else
+    echo "Real Caido executable not found!"
+    exit 1
+fi
