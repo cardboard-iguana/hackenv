@@ -32,6 +32,7 @@ yarn.lock
 # Per-engagement application data
 /appdata/android/
 /appdata/BurpSuite/
+/appdata/chromium/
 /appdata/lesshst
 /appdata/macOS/
 /appdata/solc-select/

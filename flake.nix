@@ -20,7 +20,6 @@
       nixpkgs.lib.genAttrs [
         "aarch64-darwin"
         "aarch64-linux"
-        "i686-linux"
         "x86_64-darwin"
         "x86_64-linux"
       ] (system:
@@ -41,7 +40,10 @@
             #### Python tooling ####
             (pkgs.python3.withPackages (pythonPackages: [
               pythonPackages.impacket
+              pythonPackages.mitmproxy
               pythonPackages.shodan
+              pythonPackages.sqlmap
+              pythonPackages.wfuzz
             ]))
 
             #### Node.js ####
@@ -58,10 +60,14 @@
             aircrack-ng
             android-tools
             arping
+            #caido
+            (pkgs.callPackage ./fixes/caido/package.nix {}) # pkgs.caido has bad hashes for 0.53.1
             cewl
             curlFull
             enum4linux-ng
             evil-winrm
+            expect
+            freerdp
             gdb
             gobuster
             goose-cli
@@ -72,34 +78,69 @@
             jq
             kerbrute
             masscan
+            metasploit
             mimikatz
+            nbtscan
+            netcat-gnu
+            nikto
+            nmap
+            openssh
             openvpn
+            postgresql
+            powershell
+            powersploit
+            powerview
+            procps
+            proxychains-ng
             recon-ng
+            responder
             ripgrep
+            rlwrap
+            samba
+            smbmap
             socat
             solc-select
             sqlite
+            tcpdump
             thc-hydra
+            theharvester
+            tinyxxd
+            uutils-coreutils-noprefix
+            wireshark
             yq
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+            xquartz # Needed by XFreeRDP (pkgs.freerdp)
+          ]
+          ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
             ike-scan
+            linux-exploit-suggester
+            netexec # Marked as broken on macOS
             net-tools
 
             # The following packages must be installed using Homebrew on macOS...
             #
             burpsuite # Breaks nix evaluation (Linux-specific build) on macOS
+            ungoogled-chromium # Not supported on macOS
           ];
 
-        # TODO: Replicate core packages from Disposable Kali
-        #         - metasploit + postgresql
-        #         - (currently done reviewing tools from notes through "N")
-        #         - (which version of netcat in nixpkgs has the -e flag?)
+        # TODO: Look into setting variables for local configuration data (where possible)
+        #         - caido
+        #         - linux-exploit-suggester
+        #         - metasploit
+        #         - mitmproxy
         #         - netexec
-        #         - nmap
+        #         - nikto
+        #         - openssh
+        #         - postgresql
+        #         - powershell
+        #         - proxychains-ng
         #         - responder
         #         - sqlmap
+        #         - theharvester
+        #         - wfuzz
         #         - wireshark
+        #         - xquartz
         # TODO: Create helper scripts
         #         - pg_start / pg_stop
         #         - msfconsole (start/stop PostgreSQL if necessary, use .direnv/lock/msfconsole and .direnv/lock/postgresql.pid to track)
