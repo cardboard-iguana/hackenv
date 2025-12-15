@@ -135,7 +135,6 @@
         '';
 
         # TODO: Look into setting variables for local configuration data (where possible)
-        #         - wireshark
         #         - xquartz
         # TODO: Create helper scripts
         #         - wrapShell (handle msfdb and asciinema; maybe figure out how to get SHELL set properly?)

@@ -40,6 +40,7 @@
 /appdata/proxychains.conf
 /appdata/solc-select/
 /appdata/sqlite_history
+/appdata/wireshark/
 
 # Additional per-engagement directories
 /artifacts/

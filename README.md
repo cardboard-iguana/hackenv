@@ -11,6 +11,7 @@ Automatically configure directory-based hacking / pentest environments. The succ
 - [`direnv`](https://direnv.net/) ([`nix-direnv`](https://github.com/nix-community/nix-direnv?tab=readme-ov-file#installation) is recommended but not required)
 - [Burp Suite](https://portswigger.net/burp) **(macOS only)**
 - [Ungoogled Chromium](https://ungoogled-software.github.io/) (recommended) _or_ [Chromium](https://www.chromium.org/Home/) **(macOS only)**
+- [Wireshark ChmodBPF](https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallOSXInstall.html) (optional) **(macOS only)**
 
 ## Quick start
 

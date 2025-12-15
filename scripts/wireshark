@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine Wireshark executable
+#
+WIRESHARK_PATH="$(unmask_executable wireshark)"
+
+# Launch Wireshark
+#
+if [[ -n "$WIRESHARK_PATH" ]]; then
+    exec "$WIRESHARK_PATH" -P persconf:"$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/wireshark \
+        -P persdata:"$(get_direnv_path "$(dirname "$(realpath "$0")")")" "$@"
+else
+    echo "Real Wireshark executable not found!"
+    exit 1
+fi
