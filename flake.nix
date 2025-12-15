@@ -53,16 +53,20 @@
             #### Ruby ####
             ruby
 
-            #### Build dependencies ####
+            #### Various dependencies ####
             cmake
+            go # Metasploit
+            postgresql # Metasploit
 
             #### Useful tools ####
             aircrack-ng
             android-tools
             arping
+            asciinema_3
             #caido
             (pkgs.callPackage ./fixes/caido/package.nix {}) # pkgs.caido has bad hashes for 0.53.1
             cewl
+            coreutils-full # pkgs.uutils-coreutils-noprefix breaks msfconsole as of 2025-12-14; might be fixed in next release
             curlFull
             enum4linux-ng
             evil-winrm
@@ -86,11 +90,9 @@
             nmap
             openssh
             openvpn
-            postgresql
             powershell
             powersploit
             powerview
-            procps
             proxychains-ng
             recon-ng
             responder
@@ -105,7 +107,6 @@
             thc-hydra
             theharvester
             tinyxxd
-            uutils-coreutils-noprefix
             wireshark
             yq
           ]
@@ -117,6 +118,7 @@
             linux-exploit-suggester
             netexec # Marked as broken on macOS
             net-tools
+            procps # Entitlement errors on macOS
 
             # The following packages must be installed using Homebrew on macOS...
             #
@@ -125,12 +127,10 @@
           ];
 
         # TODO: Look into setting variables for local configuration data (where possible)
-        #         - metasploit
         #         - mitmproxy
         #         - netexec
         #         - nikto
         #         - openssh
-        #         - postgresql
         #         - powershell
         #         - proxychains-ng
         #         - responder
@@ -140,9 +140,7 @@
         #         - wireshark
         #         - xquartz
         # TODO: Create helper scripts
-        #         - pg_start / pg_stop
-        #         - msfconsole (start/stop PostgreSQL if necessary, use .direnv/lock/msfconsole and .direnv/lock/postgresql.pid to track)
-        #         - wrapShell (start/stop PostgreSQL if necessary, handle Asciinema, multi-session aware, use .direnv/lock/wrapShell and .direnv/lock/postgresql.pid to track)
+        #         - wrapShell (handle msfdb and asciinema; maybe figure out how to get SHELL set properly?)
         #         - backup-engagement (git checkpoint, backup environment while exclude everything in .gitignore)
         # TODO: Create init.sh script (set placeholders, copy directory, replace placeholders, fix .gitignore, init git)
       };

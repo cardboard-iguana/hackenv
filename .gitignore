@@ -17,17 +17,17 @@
 #### Ignore in template git repo but not live engagements ##############
 
 # Ignore lock files
-flake.lock
-Gemfile.lock
-package-lock.json
-pdm.lock
-Pipfile.lock
-pixi.lock
-pnpm-lock.yaml
-poetry.lock
-requirements.lock
-uv.lock
-yarn.lock
+/flake.lock
+/Gemfile.lock
+/package-lock.json
+/pdm.lock
+/Pipfile.lock
+/pixi.lock
+/pnpm-lock.yaml
+/poetry.lock
+/requirements.lock
+/uv.lock
+/yarn.lock
 
 # Per-engagement application data
 /appdata/android/
@@ -35,6 +35,7 @@ yarn.lock
 /appdata/chromium/
 /appdata/lesshst
 /appdata/macOS/
+/appdata/metasploit/
 /appdata/solc-select/
 /appdata/sqlite_history
 
