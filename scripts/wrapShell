@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine the engagement directory
+#
+ENGAGEMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
+
+# Make sure we're actually in the engagement directory and direnv is
+# loaded
+#
+if [[ ! "$(realpath "$(pwd)")"/ =~ "$ENGAGEMENT_DIRECTORY"/* ]]; then
+    cd "$ENGAGEMENT_DIRECTORY"
+    eval "$(direnv export bash)"
+fi
+
+# Set recording file information
+#
+RECORDING_PATH="$ENGAGEMENT_DIRECTORY"/artifacts
+
+if [[ ! -d "$RECORDING_PATH" ]]; then
+    mkdir -p "$RECORDING_PATH"
+fi
+
+RECORDING_NAME="terminal_session_$(date "+%Y%m%d_%H%M%S")"
+
+# Determine what shell we're starting
+#
+SHELL_COMMAND="$(which "$(basename "$(ps -o comm= -p "$(ps -o ppid= -p $$)" | sed 's/^-//')")" 2>/dev/null)"
+
+if [[ -z "$SHELL_COMMAND" ]]; then
+    if [[ -n "$SHELL" ]]; then
+        SHELL_COMMAND="$SHELL"
+    elif [[ -n "$(which bash 2>/dev/null)" ]]; then
+        SHELL_COMMAND="$(which bash)"
+    elif [[ -n "$(which sh 2>/dev/null)" ]]; then
+        SHELL_COMMAND="$(which sh)"
+    else
+        echo "Could not determine a sane shell, aborting"
+        exit 1
+    fi
+fi
+
+# Start Metasploit database and record session
+#
+start_msfdb "$ENGAGEMENT_DIRECTORY"
+
+asciinema rec --command "$SHELL_COMMAND" --idle-time-limit 2 "$RECORDING_PATH"/"${RECORDING_NAME}.cast"
+
+stop_msfdb "$ENGAGEMENT_DIRECTORY"

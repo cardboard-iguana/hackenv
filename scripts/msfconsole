@@ -6,41 +6,22 @@ set -e
 #
 source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 
+# Determine engagement directory
+#
+ENGAGEMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
+
 # Determine msfconsole executable
 #
 MSFCONSOLE_PATH="$(unmask_executable msfconsole)"
 
-# Determine Metasploit data directory
-#
-if [[ -z "$MSF_CFGROOT_CONFIG" ]]; then
-    MSF_CFGROOT_CONFIG="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/metasploit
-    mkdir -p "$MSF_CFGROOT_CONFIG"
-
-    export MSF_CFGROOT_CONFIG
-fi
-
 # Run msfconsole
 #
 if [[ -n "$MSFCONSOLE_PATH" ]]; then
-    if [[ -z "$ASCIINEMA_REC" ]]; then
-        if [[ ! -d "$MSF_CFGROOT_CONFIG"/db ]]; then
-            msfdb init
-        fi
-        if [[ ! -f "$MSF_CFGROOT_CONFIG"/db/postmaster.pid ]]; then
-            msfdb start
-        elif [[ -z "$(pgrep -F "$MSF_CFGROOT_CONFIG"/db/postmaster.pid)" ]]; then
-            rm "$MSF_CFGROOT_CONFIG"/db/postmaster.pid
-            msfdb start
-        fi
-    fi
+    start_msfdb "$ENGAGEMENT_DIRECTORY"
 
-    "$MSFCONSOLE_PATH" msfConfigRoot="$MSF_CFGROOT_CONFIG" "$@"
+    "$MSFCONSOLE_PATH" msfConfigRoot="$(get_msf_config_root "$ENGAGEMENT_DIRECTORY")" "$@"
 
-    if [[ -z "$ASCIINEMA_REC" ]]; then
-        if [[ $(pgrep -f "msfconsole msfConfigRoot=$MSF_CFGROOT_CONFIG" | wc -l) -eq 0 ]]; then
-            msfdb stop
-        fi
-    fi
+    stop_msfdb "$ENGAGEMENT_DIRECTORY"
 else
     echo "Real msfconsole executable not found!"
     exit 1
