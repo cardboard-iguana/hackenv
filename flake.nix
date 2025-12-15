@@ -98,6 +98,7 @@
               freerdp
               fuzzdb
               gdb
+              gnutar # Needed for backup script
               gobuster
               hashcat
               hashcat-utils
@@ -153,9 +154,6 @@
             export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists:${pkgs.wfuzz}/share/wordlists/wfuzz"
           '';
 
-          # TODO: Create helper scripts
-          #         - wrapShell (handle msfdb and asciinema; figure out how to get SHELL set properly)
-          #         - backup-engagement (git checkpoint, backup environment while exclude everything in .gitignore)
           # TODO: Create init.sh script (set placeholders, copy directory, replace placeholders, fix .gitignore, init git)
         };
     });

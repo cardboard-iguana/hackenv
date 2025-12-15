@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine the engagement directory
+#
+ENGAGEMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
+
+# Make sure we're actually in the engagement directory
+#
+cd "$ENGAGEMENT_DIRECTORY"
+
+# Load direnv to ensure that GNU tar is in our PATH
+#
+eval "$(direnv export bash)"
+
+# Make sure all changes are committed
+#
+echo git add -A -v
+echo git commit -m "Engagement backup: $(date)" || true
+
+# Back up environment
+#
+mkdir -p backups
+
+BACKUP_LIST="$(mktemp)"
+echo ".git" >"$BACKUP_LIST"
+git ls-tree -r HEAD --name-only >>"$BACKUP_LIST"
+
+tar -cJv --exclude-vcs-ignores -f backups/"$(date "+%Y%m%d_%H%M%S").tar.xz" -T "$BACKUP_LIST"
+
+rm -f "$BACKUP_LIST"
