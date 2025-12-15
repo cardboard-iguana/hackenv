@@ -68,10 +68,13 @@
             cewl
             coreutils-full # pkgs.uutils-coreutils-noprefix breaks msfconsole as of 2025-12-14; might be fixed in next release
             curlFull
+            dirbuster # Just for the wordlists...
             enum4linux-ng
             evil-winrm
             expect
+            exploitdb
             freerdp
+            fuzzdb
             gdb
             gobuster
             goose-cli
@@ -99,6 +102,7 @@
             ripgrep
             rlwrap
             samba
+            seclists
             smbmap
             socat
             solc-select
@@ -126,11 +130,11 @@
             ungoogled-chromium # Not supported on macOS
           ];
 
+        shellHook = ''
+          export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists:${pkgs.wfuzz}/share/wordlists/wfuzz"
+        '';
+
         # TODO: Look into setting variables for local configuration data (where possible)
-        #         - responder
-        #         - sqlmap
-        #         - theharvester
-        #         - wfuzz
         #         - wireshark
         #         - xquartz
         # TODO: Create helper scripts

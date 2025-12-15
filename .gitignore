@@ -41,8 +41,9 @@
 /appdata/solc-select/
 /appdata/sqlite_history
 
-# Ignore artifacts
+# Additional per-engagement directories
 /artifacts/
+/wordlists/
 
 #### Standard GitHub Nix .gitignore ####################################
 
