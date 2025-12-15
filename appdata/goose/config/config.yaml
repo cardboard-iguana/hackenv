@@ -14,3 +14,9 @@ extensions:
     name: memory
     timeout: 300
     type: builtin
+  skills:
+    bundled: true
+    enabled: true
+    name: skills
+    timeout: 300
+    type: builtin
