@@ -66,7 +66,7 @@
             #caido
             (pkgs.callPackage ./fixes/caido/package.nix {}) # pkgs.caido has bad hashes for 0.53.1
             cewl
-            coreutils-full # pkgs.uutils-coreutils-noprefix breaks msfconsole as of 2025-12-14; might be fixed in next release
+            coreutils-full # pkgs.uutils-coreutils-noprefix breaks msfconsole as of 2025-12-14; might be fixed in next release (0.5.0?)
             curlFull
             dirbuster # Just for the wordlists...
             enum4linux-ng
@@ -115,9 +115,6 @@
             yq
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
-            xquartz # Needed by XFreeRDP (pkgs.freerdp)
-          ]
-          ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
             ike-scan
             linux-exploit-suggester
             netexec # Marked as broken on macOS
@@ -134,10 +131,8 @@
           export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists:${pkgs.wfuzz}/share/wordlists/wfuzz"
         '';
 
-        # TODO: Look into setting variables for local configuration data (where possible)
-        #         - xquartz
         # TODO: Create helper scripts
-        #         - wrapShell (handle msfdb and asciinema; maybe figure out how to get SHELL set properly?)
+        #         - wrapShell (handle msfdb and asciinema; figure out how to get SHELL set properly)
         #         - backup-engagement (git checkpoint, backup environment while exclude everything in .gitignore)
         # TODO: Create init.sh script (set placeholders, copy directory, replace placeholders, fix .gitignore, init git)
       };
