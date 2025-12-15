@@ -127,12 +127,6 @@
           ];
 
         # TODO: Look into setting variables for local configuration data (where possible)
-        #         - mitmproxy
-        #         - netexec
-        #         - nikto
-        #         - openssh
-        #         - powershell
-        #         - proxychains-ng
         #         - responder
         #         - sqlmap
         #         - theharvester

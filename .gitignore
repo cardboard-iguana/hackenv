@@ -36,6 +36,8 @@
 /appdata/lesshst
 /appdata/macOS/
 /appdata/metasploit/
+/appdata/nikto.conf
+/appdata/proxychains.conf
 /appdata/solc-select/
 /appdata/sqlite_history
 

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine mitmweb executable
+#
+MITM_WEB_PATH="$(unmask_executable mitmweb)"
+
+# Launch mitmweb CLI
+#
+if [[ -n "$MITM_WEB_PATH" ]]; then
+    exec "$MITM_WEB_PATH" --set confdir="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/mitmproxy "$@"
+else
+    echo "Real mitmweb executable not found!"
+    exit 1
+fi

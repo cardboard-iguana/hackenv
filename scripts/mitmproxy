@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine mitmproxy executable
+#
+MITM_PROXY_PATH="$(unmask_executable mitmproxy)"
+
+# Launch mitmproxy CLI
+#
+if [[ -n "$MITM_PROXY_PATH" ]]; then
+    exec "$MITM_PROXY_PATH" --set confdir="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/mitmproxy "$@"
+else
+    echo "Real mitmproxy executable not found!"
+    exit 1
+fi

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine Nikto executable
+#
+NIKTO_PATH="$(unmask_executable nikto)"
+
+# Launch Nikto
+#
+if [[ -n "$NIKTO_PATH" ]]; then
+    exec "$NIKTO_PATH" -config "$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/nikto.conf "$@"
+else
+    echo "Real Nikto executable not found!"
+    exit 1
+fi
