@@ -28,6 +28,10 @@ ENVIRONMENT_NAME="$(echo "$ENVIRONMENT_NAME_FOR_HUMANS" | tr "[:upper:]" "[:lowe
 # Copy template directory
 #
 DESTINATION_DIR="$(realpath "$HOME")"/engagements/"$ENVIRONMENT_NAME"
+if [[ -e "$DESTINATION_DIR" ]]; then
+    echo "$DESTINATION_DIR already exists!"
+    exit 1
+fi
 mkdir -p "$(dirname "$DESTINATION_DIR")"
 cp -af "$SOURCE_DIR" "$DESTINATION_DIR"
 rm -rf "$DESTINATION_DIR"/.git "$DESTINATION_DIR"/LICENSE
