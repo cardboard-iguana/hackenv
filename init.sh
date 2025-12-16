@@ -30,7 +30,7 @@ ENVIRONMENT_NAME="$(echo "$ENVIRONMENT_NAME_FOR_HUMANS" | tr "[:upper:]" "[:lowe
 DESTINATION_DIR="$(realpath "$HOME")"/engagements/"$ENVIRONMENT_NAME"
 mkdir -p "$(dirname "$DESTINATION_DIR")"
 cp -af "$SOURCE_DIR" "$DESTINATION_DIR"
-rm -rf "$DESTINATION_DIR"/.git
+rm -rf "$DESTINATION_DIR"/.git "$DESTINATION_DIR"/LICENSE
 
 # Create scratch file
 #

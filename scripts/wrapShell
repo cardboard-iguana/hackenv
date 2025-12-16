@@ -30,7 +30,7 @@ RECORDING_NAME="terminal_session_$(date "+%Y%m%d_%H%M%S")"
 
 # Determine what shell we're starting
 #
-SHELL_COMMAND="$(which "$(basename "$(ps -o comm= -p "$(ps -o ppid= -p $$)" | sed 's/^-//')")" 2>/dev/null)"
+SHELL_COMMAND="$(which "$(basename "$(ps -o comm= -p "$(ps -o ppid= -p $$ | sed "s/ //g")" | sed 's/^-//')")" 2>/dev/null)"
 
 if [[ -z "$SHELL_COMMAND" ]]; then
     if [[ -n "$SHELL" ]]; then
