@@ -88,7 +88,6 @@
               #caido
               (pkgs.callPackage ./fixes/caido/package.nix {}) # pkgs.caido has bad hashes for 0.53.1
               cewl
-              coreutils-full # pkgs.uutils-coreutils-noprefix breaks msfconsole as of 2025-12-14; might be fixed in next release (0.5.0?)
               curlFull
               dirbuster # Just for the wordlists...
               enum4linux-ng
@@ -134,6 +133,9 @@
               thc-hydra
               theharvester
               tinyxxd
+              uutils-coreutils-noprefix
+              uutils-diffutils
+              uutils-findutils
               wireshark
               yq
             ]
