@@ -57,6 +57,16 @@
         llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
       in
         pkgs.mkShell {
+          # Pass pkgs.bashInteractive as a build input, since otherwise
+          # bash subshells (including ones that may be spawned by
+          # wrapShell) are broken
+          #
+          #   https://discourse.nixos.org/t/non-interactive-bash-errors-from-flake-nix-mkshell/33310
+          #
+          buildInputs = [pkgs.bashInteractive];
+
+          # Various useful packages
+          #
           packages = with pkgs;
             [
               #### Python tooling ####
@@ -152,6 +162,8 @@
               ungoogled-chromium # Not supported on macOS
             ];
 
+          # Expose wordlist directories to direnv for further setup
+          #
           shellHook = ''
             export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists:${pkgs.wfuzz}/share/wordlists/wfuzz"
           '';
