@@ -29,7 +29,7 @@ ENVIRONMENT_NAME="$(echo "$ENVIRONMENT_NAME_FOR_HUMANS" | tr "[:upper:]" "[:lowe
 #
 DESTINATION_DIR="$(realpath "$HOME")"/engagements/"$ENVIRONMENT_NAME"
 mkdir -p "$(dirname "$DESTINATION_DIR")"
-cp -avf "$SOURCE_DIR" "$DESTINATION_DIR"
+cp -af "$SOURCE_DIR" "$DESTINATION_DIR"
 rm -rf "$DESTINATION_DIR"/.git
 
 # Create scratch file
@@ -82,8 +82,7 @@ rm -f "$SCRATCH_FILE"
 #
 echo "Environment setup complete!"
 echo ""
-echo "The environment directory for $ENVIRONMENT_NAME_FOR_HUMANS"
-echo "is:"
+echo "The environment directory for $ENVIRONMENT_NAME_FOR_HUMANS is:"
 echo ""
 echo "  $ENVIRONMENT_NAME"
 echo ""
