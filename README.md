@@ -20,8 +20,6 @@ git clone https://github.com/cardboard-iguana/hackenv.git
 cd hackenv
 ./init.sh "My Engagement"
 
-direnv allow ~/engagements/my_engagement/.envrc
-
 ~/engagements/my_engagement/scripts/wrapShell # OR JUST: cd ~/engagements/my_engagement
 ```
 

@@ -6,9 +6,9 @@ set -e
 #
 source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 
-# Determine engagement directory
+# Determine environment directory
 #
-ENGAGEMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
+ENVIRONMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
 
 # Determine msfconsole executable
 #
@@ -17,11 +17,11 @@ MSFCONSOLE_PATH="$(unmask_executable msfconsole)"
 # Run msfconsole
 #
 if [[ -n "$MSFCONSOLE_PATH" ]]; then
-    start_msfdb "$ENGAGEMENT_DIRECTORY"
+    start_msfdb "$ENVIRONMENT_DIRECTORY"
 
-    "$MSFCONSOLE_PATH" msfConfigRoot="$(get_msf_config_root "$ENGAGEMENT_DIRECTORY")" "$@"
+    "$MSFCONSOLE_PATH" msfConfigRoot="$(get_msf_config_root "$ENVIRONMENT_DIRECTORY")" "$@"
 
-    stop_msfdb "$ENGAGEMENT_DIRECTORY"
+    stop_msfdb "$ENVIRONMENT_DIRECTORY"
 else
     echo "Real msfconsole executable not found!"
     exit 1

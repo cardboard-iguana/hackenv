@@ -6,21 +6,21 @@ set -e
 #
 source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 
-# Determine the engagement directory
+# Determine the environment directory
 #
-ENGAGEMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
+ENVIRONMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
 
-# Make sure we're actually in the engagement directory and direnv is
+# Make sure we're actually in the environment directory and direnv is
 # loaded
 #
-if [[ ! "$(realpath "$(pwd)")"/ =~ "$ENGAGEMENT_DIRECTORY"/* ]]; then
-    cd "$ENGAGEMENT_DIRECTORY"
+if [[ ! "$(realpath "$(pwd)")"/ =~ "$ENVIRONMENT_DIRECTORY"/* ]]; then
+    cd "$ENVIRONMENT_DIRECTORY"
     eval "$(direnv export bash)"
 fi
 
 # Set recording file information
 #
-RECORDING_PATH="$ENGAGEMENT_DIRECTORY"/artifacts
+RECORDING_PATH="$ENVIRONMENT_DIRECTORY"/artifacts
 
 if [[ ! -d "$RECORDING_PATH" ]]; then
     mkdir -p "$RECORDING_PATH"
@@ -47,8 +47,8 @@ fi
 
 # Start Metasploit database and record session
 #
-start_msfdb "$ENGAGEMENT_DIRECTORY"
+start_msfdb "$ENVIRONMENT_DIRECTORY"
 
 asciinema rec --command "$SHELL_COMMAND" --idle-time-limit 2 "$RECORDING_PATH"/"${RECORDING_NAME}.cast"
 
-stop_msfdb "$ENGAGEMENT_DIRECTORY"
+stop_msfdb "$ENVIRONMENT_DIRECTORY"

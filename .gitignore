@@ -14,7 +14,8 @@
 !.env.example
 /appdata/goose/config/secrets.yaml
 
-#### Ignore in template git repo but not live engagements ##############
+########################################################################
+#### Ignore in template git repo but not live environments #############
 
 # Ignore lock files
 /flake.lock
@@ -29,7 +30,7 @@
 /uv.lock
 /yarn.lock
 
-# Per-engagement application data
+# Per-environment application data
 /appdata/android/
 /appdata/BurpSuite/
 /appdata/chromium/
@@ -42,10 +43,11 @@
 /appdata/sqlite_history
 /appdata/wireshark/
 
-# Additional per-engagement directories
+# Additional per-environment directories
 /artifacts/
 /wordlists/
 
+########################################################################
 #### Standard GitHub Nix .gitignore ####################################
 
 # Ignore build outputs from performing a nix-build or `nix build` command

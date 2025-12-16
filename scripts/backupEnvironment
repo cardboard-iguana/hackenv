@@ -6,13 +6,13 @@ set -e
 #
 source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 
-# Determine the engagement directory
+# Determine the environment directory
 #
-ENGAGEMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
+ENVIRONMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
 
-# Make sure we're actually in the engagement directory
+# Make sure we're actually in the environment directory
 #
-cd "$ENGAGEMENT_DIRECTORY"
+cd "$ENVIRONMENT_DIRECTORY"
 
 # Load direnv to ensure that GNU tar is in our PATH
 #

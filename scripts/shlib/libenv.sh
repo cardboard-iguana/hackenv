@@ -27,11 +27,11 @@ function unmask_executable {
 }
 
 function get_msf_config_root {
-    ENGAGEMENT_DIRECTORY="$(get_direnv_path "$1")"
+    ENVIRONMENT_DIRECTORY="$(get_direnv_path "$1")"
 
-    if [[ -n "$ENGAGEMENT_DIRECTORY" ]] && [[ -d "$ENGAGEMENT_DIRECTORY" ]]; then
+    if [[ -n "$ENVIRONMENT_DIRECTORY" ]] && [[ -d "$ENVIRONMENT_DIRECTORY" ]]; then
         if [[ -z "$MSF_CFGROOT_CONFIG" ]]; then
-            MSF_CFGROOT_CONFIG="$ENGAGEMENT_DIRECTORY"/appdata/metasploit
+            MSF_CFGROOT_CONFIG="$ENVIRONMENT_DIRECTORY"/appdata/metasploit
             mkdir -p "$MSF_CFGROOT_CONFIG"
         fi
         echo "$MSF_CFGROOT_CONFIG"
@@ -57,14 +57,14 @@ function start_msfdb {
 }
 
 function stop_msfdb {
-    ENGAGEMENT_DIRECTORY="$(get_direnv_path "$1")"
-    MSF_CFGROOT_CONFIG="$(get_msf_config_root "$ENGAGEMENT_DIRECTORY")"
+    ENVIRONMENT_DIRECTORY="$(get_direnv_path "$1")"
+    MSF_CFGROOT_CONFIG="$(get_msf_config_root "$ENVIRONMENT_DIRECTORY")"
 
     if [[ -n "$MSF_CFGROOT_CONFIG" ]]; then
         export MSF_CFGROOT_CONFIG
 
         if [[ $(pgrep -f "msfconsole msfConfigRoot=$MSF_CFGROOT_CONFIG" | wc -l) -eq 0 ]] &&
-            [[ $(pgrep -a -f "asciinema rec .* $ENGAGEMENT_DIRECTORY/artifacts/terminal_session_.*.cast" | wc -l) -eq 0 ]]; then
+            [[ $(pgrep -a -f "asciinema rec .* $ENVIRONMENT_DIRECTORY/artifacts/terminal_session_.*.cast" | wc -l) -eq 0 ]]; then
             msfdb stop
         fi
     fi

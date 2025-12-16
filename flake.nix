@@ -1,5 +1,5 @@
 {
-  description = "Reproducible cyber security hacking environment for {{ENGAGEMENT_NAME_FOR_HUMANS}}";
+  description = "Reproducible cyber security hacking environment for {{ENVIRONMENT_NAME_FOR_HUMANS}}";
 
   # Add in Numtide binary cache for updated AI tools
   #
@@ -153,8 +153,6 @@
           shellHook = ''
             export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists:${pkgs.wfuzz}/share/wordlists/wfuzz"
           '';
-
-          # TODO: Create init.sh script (set placeholders, copy directory, replace placeholders, fix .gitignore, init git)
         };
     });
   };
