@@ -9,7 +9,13 @@ source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 # Determine Burp Suite executable
 #
 if [[ "$(uname -s)" == "Darwin" ]]; then
-    BURP_SUITE_PATH="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/macOS/Applications/BurpSuite.app/Contents/MacOS/JavaApplicationStub
+    MACOS_APP_PATH="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/macOS/Applications
+
+    if [[ -d "$MACOS_APP_PATH/Burp Suite Professional.app" ]]; then
+        BURP_SUITE_PATH="$MACOS_APP_PATH/Burp Suite Professional.app"/Contents/MacOS/JavaApplicationStub
+    elif [[ -d "$MACOS_APP_PATH/Burp Suite Community Edition.app" ]]; then
+        BURP_SUITE_PATH="$MACOS_APP_PATH/Burp Suite Community Edition.app"/Contents/MacOS/JavaApplicationStub
+    fi
 else
     BURP_SUITE_PATH="$(unmask_executable burpsuite)"
 fi
