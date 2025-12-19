@@ -102,7 +102,6 @@
               dirbuster # Just for the wordlists...
               enum4linux-ng
               evil-winrm
-              expect
               exploitdb
               freerdp
               fuzzdb
@@ -111,9 +110,7 @@
               gobuster
               hashcat
               hashcat-utils
-              inetutils
               john
-              jq
               kerbrute
               llmAgents.goose-cli # Numtide's flake includes Goose 1.16.0+, which supports skills
               masscan
@@ -123,7 +120,6 @@
               netcat-gnu
               nikto
               nmap
-              openssh
               openvpn
               powershell
               powersploit
@@ -131,30 +127,22 @@
               proxychains-ng
               recon-ng
               responder
-              ripgrep
               rlwrap
               samba
               seclists
               smbmap
               socat
               solc-select
-              sqlite
               tcpdump
               thc-hydra
               theharvester
               tinyxxd
-              uutils-coreutils-noprefix
-              uutils-diffutils
-              uutils-findutils
               wireshark
-              yq
             ]
             ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
               ike-scan
               linux-exploit-suggester
               netexec # Marked as broken on macOS
-              net-tools
-              procps # Entitlement errors on macOS
 
               # The following packages must be installed using Homebrew on macOS...
               #
