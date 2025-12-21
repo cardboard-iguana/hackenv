@@ -59,7 +59,7 @@
         pkgs.mkShell {
           # Pass pkgs.bashInteractive as a build input, since otherwise
           # bash subshells (including ones that may be spawned by
-          # wrapShell) are broken
+          # wrap-shell) are broken
           #
           #   https://discourse.nixos.org/t/non-interactive-bash-errors-from-flake-nix-mkshell/33310
           #
