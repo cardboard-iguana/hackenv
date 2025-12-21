@@ -5,10 +5,13 @@ Automatically configure directory-based hacking / pentest environments. The succ
 ## Prerequisits
 
 - [Determinate Nix](https://determinate.systems/nix-installer/) (recommended) _or_ [Nix](https://nixos.org/download/) with [flakes enabled](https://nixos.wiki/wiki/Flakes)
-- [`direnv`](https://direnv.net/) ([`nix-direnv`](https://github.com/nix-community/nix-direnv?tab=readme-ov-file#installation) is recommended but not required)
-- [Burp Suite](https://portswigger.net/burp) **(macOS only)**
-- [Ungoogled Chromium](https://ungoogled-software.github.io/) (recommended) _or_ [Chromium](https://www.chromium.org/Home/) **(macOS only)**
-- [Wireshark ChmodBPF](https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallOSXInstall.html) (optional) **(macOS only)**
+- [`direnv`](https://direnv.net/) _optionally_ with [`nix-direnv`](https://github.com/nix-community/nix-direnv?tab=readme-ov-file#installation)
+
+### Additional macOS requirements
+
+- [Burp Suite](https://portswigger.net/burp)
+- [Ungoogled Chromium](https://ungoogled-software.github.io/) (recommended) _or_ [Chromium](https://www.chromium.org/Home/)
+- [Wireshark ChmodBPF](https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallOSXInstall.html) (optional)
 
 ## Quick start
 
