@@ -23,7 +23,7 @@ if [[ -z "$ENVIRONMENT_NAME_FOR_HUMANS" ]]; then
     exit 1
 fi
 
-ENVIRONMENT_NAME="$(echo "$ENVIRONMENT_NAME_FOR_HUMANS" | tr "[:upper:]" "[:lower:]" | tr -s -c "[:alnum:]" _ | sed 's/^_//;s/_$//')"
+ENVIRONMENT_NAME="$(echo "$ENVIRONMENT_NAME_FOR_HUMANS" | tr "[:upper:]" "[:lower:]" | tr -s -c "[:alnum:]-" _ | sed 's/__*/_/g;s/^_//;s/_$//')"
 
 # Copy template directory
 #
