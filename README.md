@@ -1,6 +1,6 @@
 # hackenv
 
-Automatically configure directory-based hacking / pentest environments. The successor of [Disposable Kali](https://github.com/cardboard-iguana/disposable-kali).
+Automatically configure directory-based hacking / pentest environments. The successor to [Disposable Kali](https://github.com/cardboard-iguana/disposable-kali).
 
 ## Prerequisits
 
