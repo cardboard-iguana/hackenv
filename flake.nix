@@ -87,8 +87,9 @@
 
               #### Various dependencies ####
               cmake
-              go # Metasploit
-              postgresql # Metasploit
+              go # metasploit
+              gnutar # backup-environment
+              postgresql # metasploit
 
               #### Useful tools ####
               aircrack-ng
@@ -106,7 +107,6 @@
               freerdp
               fuzzdb
               gdb
-              gnutar # Needed for backup script
               gobuster
               hashcat
               hashcat-utils
