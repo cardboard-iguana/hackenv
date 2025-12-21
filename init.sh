@@ -79,6 +79,7 @@ rm -f "$SCRATCH_FILE"
 (
     cd "$DESTINATION_DIR"
     direnv allow "$DESTINATION_DIR"/.envrc
+    export DIRENV_WARN_TIMEOUT=0
     eval "$(direnv export bash)"
 )
 
