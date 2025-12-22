@@ -6,16 +6,12 @@ set -e
 #
 source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 
-# Determine Burp Suite executable
+# Determine Burp Suite paths
 #
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    MACOS_APP_PATH="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/macOS/Applications
+BURP_SUITE_DATA_PATH="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/BurpSuite
 
-    if [[ -d "$MACOS_APP_PATH/Burp Suite Professional.app" ]]; then
-        BURP_SUITE_PATH="$MACOS_APP_PATH/Burp Suite Professional.app"/Contents/MacOS/JavaApplicationStub
-    elif [[ -d "$MACOS_APP_PATH/Burp Suite Community Edition.app" ]]; then
-        BURP_SUITE_PATH="$MACOS_APP_PATH/Burp Suite Community Edition.app"/Contents/MacOS/JavaApplicationStub
-    fi
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    BURP_SUITE_PATH="$(get_direnv_path "$(dirname "$(realpath "$0")")")/appdata/macOS/Applications/Burp Suite Community Edition.app"/Contents/MacOS/JavaApplicationStub
 else
     BURP_SUITE_PATH="$(unmask_executable burpsuite)"
 fi
@@ -23,8 +19,8 @@ fi
 # Launch Burp Suite
 #
 if [[ -n "$BURP_SUITE_PATH" ]]; then
-    exec "$BURP_SUITE_PATH" --data-dir="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/BurpSuite \
-        --user-config-file="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/BurpSuite/UserConfig.json \
+    exec "$BURP_SUITE_PATH" --data-dir="$BURP_SUITE_DATA_PATH" \
+        --user-config-file="$BURP_SUITE_DATA_PATH"/UserConfigCommunity.json \
         --disable-auto-update "$@"
 else
     echo "Real Burp Suite executable not found!"
