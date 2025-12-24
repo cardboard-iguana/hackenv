@@ -72,6 +72,7 @@
               #### Python tooling ####
               (pkgs.python3.withPackages (pythonPackages: [
                 pythonPackages.impacket
+                pythonPackages.markitdown
                 pythonPackages.mitmproxy
                 pythonPackages.shodan
                 pythonPackages.sqlmap
