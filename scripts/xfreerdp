@@ -25,10 +25,10 @@ else
 fi
 
 # Launch FreeRDP client
-# 
+#
 if [[ -n "$FREERDP_PATH" ]]; then
     # FIXME: Remove STDERR redirect once sdl-freerdp is build with SDL3
-    exec "$FREERDP_PATH" "$@" 2> /dev/null
+    exec "$FREERDP_PATH" "$@" 2>/dev/null
 else
     echo "An appropriate FreeRDP implementation could not found!"
     exit 1
