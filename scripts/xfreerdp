@@ -16,10 +16,12 @@ SDL_FREERDP_PATH="$(unmask_executable sdl-freerdp)"
 #
 if [[ "$(uname -s)" == "Darwin" ]]; then
     FREERDP_PATH="$SDL_FREERDP_PATH"
-elif [[ -n "$WAYLAND_DISPLAY" ]]; then
+elif [[ -n "$WAYLAND_DISPLAY" ]] && [[ -n "$WAYLAND_FREERDP_PATH" ]]; then
     FREERDP_PATH="$WAYLAND_FREERDP_PATH"
-elif [[ -n "$DISPLAY" ]]; then
+elif [[ -n "$DISPLAY" ]] && [[ -n "$X_FREERDP_PATH" ]]; then
     FREERDP_PATH="$X_FREERDP_PATH"
+elif [[ -n "$SDL_FREERDP_PATH" ]]; then
+    FREERDP_PATH="$SDL_FREERDP_PATH"
 else
     FREERDP_PATH=""
 fi
@@ -27,8 +29,7 @@ fi
 # Launch FreeRDP client
 #
 if [[ -n "$FREERDP_PATH" ]]; then
-    # FIXME: Remove STDERR redirect once sdl-freerdp is build with SDL3
-    exec "$FREERDP_PATH" "$@" 2>/dev/null
+    exec "$FREERDP_PATH" "$@"
 else
     echo "An appropriate FreeRDP implementation could not found!"
     exit 1

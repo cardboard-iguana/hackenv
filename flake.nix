@@ -24,7 +24,6 @@
   };
 
   outputs = {
-    self,
     nixpkgs,
     llm-agents,
     ...
