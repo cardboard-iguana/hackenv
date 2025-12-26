@@ -96,7 +96,7 @@
               arping
               asciinema_3
               #caido
-              (pkgs.callPackage ./fixes/caido/package.nix {}) # pkgs.caido has bad hashes for 0.53.1
+              (pkgs.callPackage ./fixes/caido/package.nix {appVariants = ["cli"];}) # pkgs.caido has bad hashes for 0.53.1
               cewl
               curlFull
               dirbuster # Just for the wordlists...
@@ -134,11 +134,12 @@
               solc-select
               sqlmap
               tcpdump
+              termshark
               thc-hydra
               theharvester
               tinyxxd
+              tshark
               wfuzz
-              wireshark
             ]
             ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
               ike-scan
