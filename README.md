@@ -23,3 +23,5 @@ cd hackenv
 ```
 
 The `wrap-shell` script handles automatically starting and stopping PostgreSQL and Asciinema, and is intended just to make console logging and `msfconsole` a little faster / less painful. Note that the `msfconsole` wrapper will also handle PostgreSQL startup and shutdown (if necessary).
+
+The `browser` script can be used to launch an isolated Chromium-based browser pre-configured to proxy through localhost:8080.

@@ -42,6 +42,7 @@
         f {
           pkgs = import nixpkgs {
             inherit system;
+            config.android_sdk.accept_license = true; # Allow Android tooling to be installed
             config.allowUnfree = true; # Many security tools have "unfree" licenses
           };
         });
