@@ -70,7 +70,7 @@ rm -f "$SCRATCH_FILE"
 (
     cd "$DESTINATION_DIR"
     git init
-    git add -A -v
+    git add -A
     git commit -m "Initial commit: $ENVIRONMENT_NAME_FOR_HUMANS ($(date))"
 )
 
