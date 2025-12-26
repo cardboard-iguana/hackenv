@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine Chromium executable
+#
+if [[ -x "/Applications/Chromium.app/Contents/MacOS/Chromium" ]]; then
+    BROWSER_PATH="/Applications/Chromium.app/Contents/MacOS/Chromium"
+elif [[ -x "$HOME/Applications/Chromium.app/Contents/MacOS/Chromium" ]]; then
+    BROWSER_PATH="$HOME/Applications/Chromium.app/Contents/MacOS/Chromium"
+elif [[ -x "$HOME/Applications/Home Manager Apps/Chromium.app/Contents/MacOS/Chromium" ]]; then
+    BROWSER_PATH="$HOME/Applications/Home Manager Apps/Chromium.app/Contents/MacOS/Chromium"
+elif [[ -x "/mnt/c/Program Files (x86)/Chromium/Application/chrome.exe" ]]; then
+    BROWSER_PATH="/mnt/c/Program Files (x86)/Chromium/Application/chrome.exe"
+elif [[ -x "/mnt/c/Program Files/Chromium/Application/chrome.exe" ]]; then
+    BROWSER_PATH="/mnt/c/Program Files/Chromium/Application/chrome.exe"
+elif [[ -n "$(which chromium 2>/dev/null)" ]]; then
+    BROWSER_PATH="$(which chromium)"
+elif [[ -x "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" ]]; then
+    BROWSER_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+elif [[ -x "$HOME/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" ]]; then
+    BROWSER_PATH="$HOME/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+elif [[ -x "$HOME/Applications/Home Manager Apps/Google Chrome.app/Contents/MacOS/Google Chrome" ]]; then
+    BROWSER_PATH="$HOME/Applications/Home Manager Apps/Google Chrome.app/Contents/MacOS/Google Chrome"
+elif [[ -x "/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" ]]; then
+    BROWSER_PATH="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+elif [[ -x "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe" ]]; then
+    BROWSER_PATH="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+elif [[ -n "$(which chrome 2>/dev/null)" ]]; then
+    BROWSER_PATH="$(which chrome)"
+elif [[ -x "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" ]]; then
+    BROWSER_PATH="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+elif [[ -x "$HOME/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" ]]; then
+    BROWSER_PATH="$HOME/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+elif [[ -x "$HOME/Applications/Home Manager Apps/Brave Browser.app/Contents/MacOS/Brave Browser" ]]; then
+    BROWSER_PATH="$HOME/Applications/Home Manager Apps/Brave Browser.app/Contents/MacOS/Brave Browser"
+elif [[ -x "/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe" ]]; then
+    BROWSER_PATH="/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe"
+elif [[ -x "/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe" ]]; then
+    BROWSER_PATH="/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
+elif [[ -n "$(which brave 2>/dev/null)" ]]; then
+    BROWSER_PATH="$(which brave)"
+elif [[ -x "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge" ]]; then
+    BROWSER_PATH="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+elif [[ -x "$HOME/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge" ]]; then
+    BROWSER_PATH="$HOME/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+elif [[ -x "$HOME/Applications/Home Manager Apps/Microsoft Edge.app/Contents/MacOS/Microsoft Edge" ]]; then
+    BROWSER_PATH="$HOME/Applications/Home Manager Apps/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+elif [[ -x "/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" ]]; then
+    BROWSER_PATH="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+elif [[ -x "/mnt/c/Program Files/Microsoft/Edge/Application/msedge.exe" ]]; then
+    BROWSER_PATH="/mnt/c/Program Files/Microsoft/Edge/Application/msedge.exe"
+elif [[ -n "$(which msedge 2>/dev/null)" ]]; then
+    BROWSER_PATH="$(which msedge)"
+else
+    BROWSER_PATH=""
+fi
+
+# Launch browser
+#
+if [[ -n "$BROWSER_PATH" ]]; then
+    exec "$BROWSER_PATH" --user-data-dir="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/browser \
+        --proxy-server=http://localhost:8080 "$@"
+else
+    echo "Browser executable not found!"
+    exit 1
+fi

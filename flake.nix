@@ -145,11 +145,6 @@
               ike-scan
               linux-exploit-suggester
               netexec # Marked as broken on macOS
-
-              # The following packages must be installed using Homebrew on macOS...
-              #
-              burpsuite # Breaks nix evaluation (Linux-specific build) on macOS
-              ungoogled-chromium # Not supported on macOS
             ];
 
           # Expose wordlist directories to direnv for further setup

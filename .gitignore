@@ -32,8 +32,6 @@
 
 # Per-environment application data
 /appdata/android/
-/appdata/BurpSuite/
-/appdata/chromium/
 /appdata/lesshst
 /appdata/macOS/
 /appdata/metasploit/
