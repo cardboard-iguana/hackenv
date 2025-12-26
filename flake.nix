@@ -72,10 +72,7 @@
               (pkgs.python3.withPackages (pythonPackages: [
                 pythonPackages.impacket
                 pythonPackages.markitdown
-                pythonPackages.mitmproxy
                 pythonPackages.shodan
-                pythonPackages.sqlmap
-                pythonPackages.wfuzz
               ]))
 
               #### Node.js ####
@@ -118,6 +115,7 @@
               masscan
               metasploit
               mimikatz
+              mitmproxy
               nbtscan
               netcat-gnu
               nikto
@@ -134,10 +132,12 @@
               seclists
               smbmap
               solc-select
+              sqlmap
               tcpdump
               thc-hydra
               theharvester
               tinyxxd
+              wfuzz
               wireshark
             ]
             ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
