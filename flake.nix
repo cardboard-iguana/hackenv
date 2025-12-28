@@ -79,6 +79,7 @@
                 pythonPackages.sqlmap
                 pythonPackages.wfuzz
               ]))
+              uv
 
               #### Node.js ####
               nodejs

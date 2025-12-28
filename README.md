@@ -2,6 +2,8 @@
 
 Automatically configure directory-based hacking / pentest environments. The successor to [Disposable Kali](https://github.com/cardboard-iguana/disposable-kali).
 
+Note that, somewhat ironically, it's probably _not_ possible to use this project on [NixOS](https://nixos.org/), despite its reliance on the Nix package manager, as I'm using [uv](https://docs.astral.sh/uv/) to manage Python. This probably isn't strictly necessary, but uv is _so_ much faster than other Python package management solutions, and (in my experience) does _such_ a better job at avoiding dependency hell, that it's kind of a no-brainer. Since this project is (currently) only targeting macOS and the Android VM ([Debian](https://debian.org)), however, the lack of NixOS support isn't an issue (to me). (That said, pull requests welcome!)
+
 ## Prerequisits
 
 - [Determinate Nix](https://determinate.systems/nix-installer/) (recommended) _or_ [Nix](https://nixos.org/download/) with [flakes enabled](https://nixos.wiki/wiki/Flakes)
