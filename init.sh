@@ -34,7 +34,10 @@ if [[ -e "$DESTINATION_DIR" ]]; then
 fi
 mkdir -p "$(dirname "$DESTINATION_DIR")"
 cp -af "$SOURCE_DIR" "$DESTINATION_DIR"
-rm -rf "$DESTINATION_DIR"/.git "$DESTINATION_DIR"/LICENSE
+rm -rf "$DESTINATION_DIR"/.git \
+       "$DESTINATION_DIR"/init.sh \
+       "$DESTINATION_DIR"/LICENSE \
+       "$DESTINATION_DIR"/README.md
 
 # Create scratch file
 #

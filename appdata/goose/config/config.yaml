@@ -1,22 +1,42 @@
-GOOSE_CLI_THEME: "ansi"
-GOOSE_MODE: "approve"
+GOOSE_CLI_THEME: ansi
+GOOSE_MODE: approve
+SECURITY_PROMPT_ENABLED: true
 
 extensions:
   developer:
-    bundled: true
     enabled: true
+    type: builtin
     name: developer
+    description: Code editing and shell access
+    display_name: Developer Tools
     timeout: 300
-    type: builtin
-  memory:
     bundled: true
+    available_tools: []
+  todo:
     enabled: true
-    name: memory
-    timeout: 300
-    type: builtin
+    type: platform
+    name: todo
+    description: Enable a todo list for goose so it can keep track of what it is doing
+    bundled: true
+    available_tools: []
+  chatrecall:
+    enabled: true
+    type: platform
+    name: chatrecall
+    description: Search past conversations and load session summaries for contextual memory
+    bundled: true
+    available_tools: []
+  extensionmanager:
+    enabled: true
+    type: platform
+    name: Extension Manager
+    description: Enable extension management tools for discovering, enabling, and disabling extensions
+    bundled: true
+    available_tools: []
   skills:
-    bundled: true
     enabled: true
+    type: platform
     name: skills
-    timeout: 300
-    type: builtin
+    description: Load and use skills from relevant directories
+    bundled: true
+    available_tools: []
