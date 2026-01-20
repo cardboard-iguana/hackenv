@@ -93,8 +93,6 @@
               go # metasploit
               gnutar # backup-environment
               postgresql # metasploit
-              ripgrep # @anthropic-ai/sandbox-runtime
-              socat # @anthropic-ai/sandbox-runtime
 
               #### Useful tools ####
               aircrack-ng
@@ -136,6 +134,7 @@
               samba
               seclists
               smbmap
+              socat
               tcpdump
               termshark
               thc-hydra
