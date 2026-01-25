@@ -13,21 +13,10 @@
   # Input streams (flakes, not variables!)
   #
   inputs = {
-    nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    };
-
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix"; # More up-to-date AI tools
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
-  outputs = {
-    nixpkgs,
-    llm-agents,
-    ...
-  }: let
+  outputs = {nixpkgs, ...}: let
     # Adapted from Determinate Systems' recommended boilerplate
     #
     #   https://determinate.systems/blog/best-practices-for-nix-at-work/#flakes
@@ -51,109 +40,104 @@
     # devShells.${system}.default always exists
     #
     devShells = forEachSystem ({pkgs}: {
-      default = let
-        # Reference Numtide LLM agents flake a bit more easily
+      default = pkgs.mkShell {
+        # Pass pkgs.bashInteractive as a build input, since otherwise
+        # bash subshells (including ones that may be spawned by
+        # wrap-shell) are broken
         #
-        llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
-      in
-        pkgs.mkShell {
-          # Pass pkgs.bashInteractive as a build input, since otherwise
-          # bash subshells (including ones that may be spawned by
-          # wrap-shell) are broken
-          #
-          #   https://discourse.nixos.org/t/non-interactive-bash-errors-from-flake-nix-mkshell/33310
-          #
-          buildInputs = [pkgs.bashInteractive];
+        #   https://discourse.nixos.org/t/non-interactive-bash-errors-from-flake-nix-mkshell/33310
+        #
+        buildInputs = [pkgs.bashInteractive];
 
-          # Various useful packages
-          #
-          packages = with pkgs;
-            [
-              #### Python tooling ####
-              (pkgs.python3.withPackages (pythonPackages: [
-                pythonPackages.impacket
-                pythonPackages.markitdown
-                pythonPackages.mitmproxy
-                pythonPackages.shodan
-                pythonPackages.solc-select
-                pythonPackages.sqlmap
-                pythonPackages.wfuzz
-              ]))
-              uv
+        # Various useful packages
+        #
+        packages = with pkgs;
+          [
+            #### Python tooling ####
+            (pkgs.python3.withPackages (pythonPackages: [
+              pythonPackages.impacket
+              pythonPackages.markitdown
+              pythonPackages.mitmproxy
+              pythonPackages.shodan
+              pythonPackages.solc-select
+              pythonPackages.sqlmap
+              pythonPackages.wfuzz
+            ]))
+            uv
 
-              #### Node.js ####
-              nodejs
-              pnpm
+            #### Node.js ####
+            nodejs
+            pnpm
 
-              #### Ruby ####
-              ruby
+            #### Ruby ####
+            ruby
 
-              #### Various dependencies ####
-              cmake
-              go # metasploit
-              gnutar # backup-environment
-              postgresql # metasploit
+            #### Various dependencies ####
+            cmake
+            go # metasploit
+            gnutar # backup-environment
+            postgresql # metasploit
 
-              #### Useful tools ####
-              aircrack-ng
-              android-tools
-              arping
-              asciinema_3
-              #caido
-              (pkgs.callPackage ./fixes/caido/package.nix {appVariants = ["cli"];}) # pkgs.caido has bad hashes for 0.53.1
-              cewl
-              curlFull
-              dirbuster # Just for the wordlists...
-              enum4linux-ng
-              evil-winrm
-              exploitdb
-              freerdp
-              fuzzdb
-              gdb
-              gobuster
-              hashcat
-              hashcat-utils
-              john
-              kerbrute
-              llmAgents.goose-cli # Numtide's flake includes Goose 1.16.0+, which supports skills
-              masscan
-              metasploit
-              mimikatz
-              nbtscan
-              netcat-gnu
-              nikto
-              nmap
-              openvpn
-              powershell
-              powersploit
-              powerview
-              proxychains-ng
-              recon-ng
-              responder
-              rlwrap
-              samba
-              seclists
-              smbmap
-              socat
-              tcpdump
-              termshark
-              thc-hydra
-              theharvester
-              tinyxxd
-              tshark
-            ]
-            ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
-              ike-scan
-              linux-exploit-suggester
-              netexec # Marked as broken on macOS
-            ];
+            #### Useful tools ####
+            aircrack-ng
+            android-tools
+            arping
+            asciinema_3
+            #caido
+            (pkgs.callPackage ./fixes/caido/package.nix {appVariants = ["cli"];}) # pkgs.caido has bad hashes for 0.53.1
+            cewl
+            claude-code
+            curlFull
+            dirbuster # Just for the wordlists...
+            enum4linux-ng
+            evil-winrm
+            exploitdb
+            freerdp
+            fuzzdb
+            gdb
+            gobuster
+            hashcat
+            hashcat-utils
+            john
+            kerbrute
+            masscan
+            metasploit
+            mimikatz
+            nbtscan
+            netcat-gnu
+            nikto
+            nmap
+            openvpn
+            powershell
+            powersploit
+            powerview
+            proxychains-ng
+            recon-ng
+            responder
+            rlwrap
+            samba
+            seclists
+            smbmap
+            socat
+            tcpdump
+            termshark
+            thc-hydra
+            theharvester
+            tinyxxd
+            tshark
+          ]
+          ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+            ike-scan
+            linux-exploit-suggester
+            netexec # Marked as broken on macOS
+          ];
 
-          # Expose wordlist directories to direnv for further setup
-          #
-          shellHook = ''
-            export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists:${pkgs.wfuzz}/share/wordlists/wfuzz"
-          '';
-        };
+        # Expose wordlist directories to direnv for further setup
+        #
+        shellHook = ''
+          export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists:${pkgs.wfuzz}/share/wordlists/wfuzz"
+        '';
+      };
     });
   };
 }
