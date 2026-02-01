@@ -2,7 +2,7 @@
 
 set -e
 
-version="0.55.1"
+version="0.55.2"
 
 echo "--------"
 grep 'url = "https://caido.download/releases/' package.nix | sed 's/.* url = "//;s/";//' | while read -r URL; do
