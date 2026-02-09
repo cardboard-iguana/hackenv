@@ -9,12 +9,12 @@
       "Edit(./Gemfile.lock)",
       "Edit(./package.json)",
       "Edit(./package-lock.json)",
-      "Edit(pnpm-lock.yaml)",
+      "Edit(./pnpm-lock.yaml)",
       "Edit(./requirements.lock)",
       "Edit(./requirements.txt)",
-      "Read(./.env)",
-      "Read(~/.gnupg)",
-      "Read(~/.ssh)"
+      "Read(//mnt)",
+      "Read(~/.ssh)",
+      "Read(//Volumes)"
     ]
   },
   "sandbox": {
