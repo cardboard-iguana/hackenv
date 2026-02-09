@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Edit(./.envrc)",
+      "Edit(./flake.lock)",
+      "Edit(./flake.nix)",
+      "Edit(./Gemfile)",
+      "Edit(./Gemfile.lock)",
+      "Edit(./package.json)",
+      "Edit(./package-lock.json)",
+      "Edit(pnpm-lock.yaml)",
+      "Edit(./requirements.lock)",
+      "Edit(./requirements.txt)",
+      "Read(./.env)",
+      "Read(~/.gnupg)",
+      "Read(~/.ssh)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+      "allowedDomains": [],
+      "allowUnixSockets": [],
+      "allowLocalBinding": true
+    },
+    "excludedCommands": []
+  }
+}

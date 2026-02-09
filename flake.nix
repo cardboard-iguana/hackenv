@@ -78,6 +78,11 @@
             gnutar # backup-environment
             postgresql # metasploit
 
+            #### Claude ####
+            claude-code
+            ripgrep
+            socat
+
             #### Useful tools ####
             aircrack-ng
             android-tools
@@ -86,7 +91,6 @@
             #caido
             (pkgs.callPackage ./fixes/caido/package.nix {appVariants = ["cli"];}) # pkgs.caido has bad hashes for 0.53.1
             cewl
-            claude-code
             curlFull
             dirbuster # Just for the wordlists...
             enum4linux-ng
@@ -118,7 +122,6 @@
             samba
             seclists
             smbmap
-            socat
             tcpdump
             termshark
             thc-hydra
