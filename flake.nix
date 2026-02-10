@@ -133,6 +133,7 @@
             ike-scan
             linux-exploit-suggester
             netexec # Marked as broken on macOS
+            strace # Used by the Anthropic Sandbox Runtime (part of CLaude Code)
           ];
 
         # Expose wordlist directories to direnv for further setup
