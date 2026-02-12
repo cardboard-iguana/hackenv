@@ -1,15 +1,6 @@
 {
   description = "Reproducible cyber security hacking environment for {{ENVIRONMENT_NAME_FOR_HUMANS}}";
 
-  # Add in Numtide binary cache for updated AI tools
-  #
-  #   https://github.com/numtide/llm-agents.nix/blob/main/README.md#binary-cache
-  #
-  nixConfig = {
-    extra-substituters = ["https://cache.numtide.com"];
-    extra-trusted-public-keys = ["niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="];
-  };
-
   # Input streams (flakes, not variables!)
   #
   inputs = {
