@@ -83,12 +83,10 @@
             cewl
             curlFull
             dirbuster # Just for the wordlists...
-            enum4linux-ng
             evil-winrm
             exploitdb
             freerdp
             fuzzdb
-            gdb
             gobuster
             hashcat
             hashcat-utils
@@ -109,21 +107,23 @@
             recon-ng
             responder
             rlwrap
-            samba
             seclists
             smbmap
             tcpdump
             termshark
-            thc-hydra
             theharvester
             tinyxxd
             tshark
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+            enum4linux-ng # 2026-02-15 Build currently fails on macOS because of samba dependency
+            gdb # 2026-02-15 Build currently fails on macOS - https://github.com/NixOS/nixpkgs/issues/483562
             ike-scan
             linux-exploit-suggester
             netexec # Marked as broken on macOS
+            samba # 2026-02-15 Build currently fails on macOS
             strace # Used by the Anthropic Sandbox Runtime (part of CLaude Code)
+            thc-hydra # 2026-02-15 Build currently fails on macOS because of samba dependency
           ];
 
         # Expose wordlist directories to direnv for further setup
