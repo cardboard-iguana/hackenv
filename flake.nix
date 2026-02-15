@@ -79,8 +79,7 @@
             android-tools
             arping
             asciinema_3
-            #caido
-            (pkgs.callPackage ./fixes/caido/package.nix {appVariants = ["cli"];}) # pkgs.caido has bad hashes for 0.53.1
+            (caido.override {appVariants = ["cli"];})
             cewl
             curlFull
             dirbuster # Just for the wordlists...
