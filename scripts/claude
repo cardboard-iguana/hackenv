@@ -77,10 +77,28 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
             "$(realpath "$(which nono)")" run \
             --profile claude-code \
             --allow "$(get_direnv_path "$(dirname "$(realpath "$0")")")" \
-            --allow "$HOME"/cache/uv \
-            --read /nix \
-            -- \
-            "$CLAUDE_CODE_PATH" --dangerously-skip-permissions "$@"
+                --allow "$HOME"/cache/fish \
+                --allow "$HOME"/cache/go-build \
+                --allow "$HOME"/cache/pip \
+                --allow "$HOME"/cache/pnpm \
+                --allow "$HOME"/cache/uv \
+                --allow "$HOME"/config/fish \
+                --allow "$HOME"/config/go \
+                --allow "$HOME"/local/share/delta \
+                --allow "$HOME"/local/share/fish \
+                --allow "$HOME"/local/share/pnpm \
+                --allow "$HOME"/local/state/pnpm \
+                --allow /tmp \
+                --allow-file /dev/null \
+                --read "$HOME"/cache/bat \
+                --read "$HOME"/config \
+                --read "$HOME"/.ssh \
+                --read /etc/skel \
+                --read /nix \
+                --read /usr/share \
+                --read-file "$HOME"/.bash_aliases \
+                --read-file /etc/bashrc \
+            -- "$CLAUDE_CODE_PATH" --dangerously-skip-permissions "$@"
     else
         exec "$CLAUDE_CODE_PATH" "$@"
     fi
