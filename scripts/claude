@@ -58,6 +58,21 @@ while IFS=: read -d: -r DIR; do
     fi
 done <<<"${XDG_DATA_DIRS:+"${XDG_DATA_DIRS}:"}"
 
+# Set defaults for XDG variables
+#
+if [[ -z "$XDG_CACHE_HOME" ]]; then
+    export XDG_CACHE_HOME="$HOME"/.cache
+fi
+if [[ -z "$XDG_CONFIG_HOME" ]]; then
+    export XDG_CONFIG_HOME="$HOME"/.config
+fi
+if [[ -z "$XDG_DATA_HOME" ]]; then
+    export XDG_DATA_HOME="$HOME"/.local/share
+fi
+if [[ -z "$XDG_STATE_HOME" ]]; then
+    export XDG_STATE_HOME="$HOME"/.local/state
+fi
+
 # Launch Claude Code (but only if not called recursively to avoid
 # sandboxing the sandbox)
 #
@@ -77,22 +92,22 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
             "$(realpath "$(which nono)")" run \
             --profile claude-code \
             --allow "$(get_direnv_path "$(dirname "$(realpath "$0")")")" \
-                --allow "$HOME"/cache/fish \
-                --allow "$HOME"/cache/go-build \
-                --allow "$HOME"/cache/pip \
-                --allow "$HOME"/cache/pnpm \
-                --allow "$HOME"/cache/uv \
-                --allow "$HOME"/config/fish \
-                --allow "$HOME"/config/go \
-                --allow "$HOME"/local/share/delta \
-                --allow "$HOME"/local/share/fish \
-                --allow "$HOME"/local/share/pnpm \
-                --allow "$HOME"/local/state/pnpm \
+                --allow "$XDG_CACHE_HOME"/fish \
+                --allow "$XDG_CACHE_HOME"/go-build \
+                --allow "$XDG_CACHE_HOME"/pip \
+                --allow "$XDG_CACHE_HOME"/pnpm \
+                --allow "$XDG_CACHE_HOME"/uv \
+                --allow "$XDG_CONFIG_HOME"/fish \
+                --allow "$XDG_CONFIG_HOME"/go \
+                --allow "$XDG_DATA_HOME"/delta \
+                --allow "$XDG_DATA_HOME"/fish \
+                --allow "$XDG_DATA_HOME"/pnpm \
+                --allow "$XDG_STATE_HOME"/pnpm \
                 --allow /tmp \
                 --allow-file /dev/null \
-                --read "$HOME"/cache/bat \
-                --read "$HOME"/config \
                 --read "$HOME"/.ssh \
+                --read "$XDG_CACHE_HOME"/bat \
+                --read "$XDG_CONFIG_HOME" \
                 --read /etc/skel \
                 --read /nix \
                 --read /usr/share \
