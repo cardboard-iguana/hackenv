@@ -32,12 +32,12 @@ if [[ -e "$DESTINATION_DIR" ]]; then
     echo "$DESTINATION_DIR already exists!"
     exit 1
 fi
-mkdir -p "$(dirname "$DESTINATION_DIR")"
+mkdir -p "$(dirname "$DESTINATION_DIR")"/appdata
 cp -af "$SOURCE_DIR" "$DESTINATION_DIR"
 rm -rf "$DESTINATION_DIR"/.git \
-       "$DESTINATION_DIR"/init.sh \
-       "$DESTINATION_DIR"/LICENSE \
-       "$DESTINATION_DIR"/README.md
+    "$DESTINATION_DIR"/init.sh \
+    "$DESTINATION_DIR"/LICENSE \
+    "$DESTINATION_DIR"/README.md
 
 # Create scratch file
 #
@@ -79,6 +79,7 @@ rm -f "$SCRATCH_FILE"
 
 # Pre-init the environment
 #
+echo ""
 (
     cd "$DESTINATION_DIR"
     direnv allow "$DESTINATION_DIR"/.envrc

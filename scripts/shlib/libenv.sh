@@ -21,7 +21,7 @@ function unmask_executable {
     PATH="$(echo ":${PATH}:" | sed "s#:/[^:]*/scripts\(/[^:]*\)*:#:#g;s#^:##;s#:\$##")"
     export PATH
 
-    which "$1" 2>/dev/null
+    realpath "$(which "$1")" 2>/dev/null
 
     export PATH="$OLD_PATH"
 }

@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine Claude Code executable
+#
+CLAUDE_CODE_PATH="$(unmask_executable claude)"
+
+# Resolve (potentially) critical paths in the environment, as nono will
+# not follow home-manager's symlinks without making all of $HOME
+# readable
+#
+SEP=""
+NEW_PATH=""
+while IFS=: read -d: -r DIR; do
+    if [[ -d "$DIR" ]]; then
+        NEW_PATH="$NEW_PATH$SEP$(realpath "$DIR")"
+        if [[ -z "$SEP" ]]; then
+            SEP=":"
+        fi
+    fi
+done <<<"${PATH:+"${PATH}:"}"
+
+SEP=""
+NEW_MANPATH=""
+while IFS=: read -d: -r DIR; do
+    if [[ -d "$DIR" ]]; then
+        NEW_MANPATH="$NEW_MANPATH$SEP$(realpath "$DIR")"
+        if [[ -z "$SEP" ]]; then
+            SEP=":"
+        fi
+    fi
+done <<<"${MANPATH:+"${MANPATH}:"}"
+
+SEP=""
+NEW_XDG_CONFIG_DIRS=""
+while IFS=: read -d: -r DIR; do
+    if [[ -d "$DIR" ]]; then
+        NEW_XDG_CONFIG_DIRS="$NEW_XDG_CONFIG_DIRS$SEP$(realpath "$DIR")"
+        if [[ -z "$SEP" ]]; then
+            SEP=":"
+        fi
+    fi
+done <<<"${XDG_CONFIG_DIRS:+"${XDG_CONFIG_DIRS}:"}"
+
+SEP=""
+NEW_XDG_DATA_DIRS=""
+while IFS=: read -d: -r DIR; do
+    if [[ -d "$DIR" ]]; then
+        NEW_XDG_DATA_DIRS="$NEW_XDG_DATA_DIRS$SEP$(realpath "$DIR")"
+        if [[ -z "$SEP" ]]; then
+            SEP=":"
+        fi
+    fi
+done <<<"${XDG_DATA_DIRS:+"${XDG_DATA_DIRS}:"}"
+
+# Launch Claude Code (but only if not called recursively to avoid
+# sandboxing the sandbox)
+#
+if [[ -n "$CLAUDE_CODE_PATH" ]]; then
+    if [[ -z "$CLAUDECODE" ]]; then
+        # shellcheck disable=SC2046
+        exec env -S \
+            $([[ -z "$NEW_PATH" ]] && echo -n "-u PATH") \
+            $([[ -z "$NEW_MANPATH" ]] && echo -n "-u MANPATH") \
+            $([[ -z "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
+            $([[ -z "$NEW_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
+            $([[ -n "$NEW_PATH" ]] && echo -n "PATH=\"$NEW_PATH\"") \
+            $([[ -n "$NEW_MANPATH" ]] && echo -n "MANPATH=\"$NEW_MANPATH\"") \
+            $([[ -n "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$NEW_XDG_CONFIG_DIRS\"") \
+            $([[ -n "$NEW_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$NEW_XDG_DATA_DIRS\"") \
+            CLAUDE_CODE_SHELL="$(realpath $(which bash))" \
+            "$(realpath "$(which nono)")" run \
+            --profile claude-code \
+            --allow "$(get_direnv_path "$(dirname "$(realpath "$0")")")" \
+            --allow "$HOME"/cache/uv \
+            --read /nix \
+            -- \
+            "$CLAUDE_CODE_PATH" --dangerously-skip-permissions "$@"
+    else
+        exec "$CLAUDE_CODE_PATH" "$@"
+    fi
+else
+    echo "Real Claude Code executable not found!"
+    exit 1
+fi

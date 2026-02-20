@@ -71,6 +71,7 @@
 
             #### Claude ####
             claude-code
+            nono
             ripgrep
             socat
 
@@ -122,7 +123,7 @@
             linux-exploit-suggester
             netexec # Marked as broken on macOS
             samba # 2026-02-15 Build currently fails on macOS
-            strace # Used by the Anthropic Sandbox Runtime (part of CLaude Code)
+            strace # Used by the Anthropic Sandbox Runtime (part of Claude Code)
             thc-hydra # 2026-02-15 Build currently fails on macOS because of samba dependency
           ];
 
