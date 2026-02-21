@@ -15,10 +15,10 @@ CLAUDE_CODE_PATH="$(unmask_executable claude)"
 # readable
 #
 SEP=""
-NEW_PATH=""
+SANDBOXED_PATH=""
 while IFS=: read -d: -r DIR; do
     if [[ -d "$DIR" ]]; then
-        NEW_PATH="$NEW_PATH$SEP$(realpath "$DIR")"
+        SANDBOXED_PATH="$SANDBOXED_PATH$SEP$(realpath "$DIR")"
         if [[ -z "$SEP" ]]; then
             SEP=":"
         fi
@@ -26,10 +26,10 @@ while IFS=: read -d: -r DIR; do
 done <<<"${PATH:+"${PATH}:"}"
 
 SEP=""
-NEW_MANPATH=""
+SANDBOXED_MANPATH=""
 while IFS=: read -d: -r DIR; do
     if [[ -d "$DIR" ]]; then
-        NEW_MANPATH="$NEW_MANPATH$SEP$(realpath "$DIR")"
+        SANDBOXED_MANPATH="$SANDBOXED_MANPATH$SEP$(realpath "$DIR")"
         if [[ -z "$SEP" ]]; then
             SEP=":"
         fi
@@ -37,10 +37,21 @@ while IFS=: read -d: -r DIR; do
 done <<<"${MANPATH:+"${MANPATH}:"}"
 
 SEP=""
-NEW_XDG_CONFIG_DIRS=""
+SANDBOXED_TERMINFO_DIRS=""
 while IFS=: read -d: -r DIR; do
     if [[ -d "$DIR" ]]; then
-        NEW_XDG_CONFIG_DIRS="$NEW_XDG_CONFIG_DIRS$SEP$(realpath "$DIR")"
+        SANDBOXED_TERMINFO_DIRS="$SANDBOXED_TERMINFO_DIRS$SEP$(realpath "$DIR")"
+        if [[ -z "$SEP" ]]; then
+            SEP=":"
+        fi
+    fi
+done <<<"${TERMINFO_DIRS:+"${TERMINFO_DIRS}:"}"
+
+SEP=""
+SANDBOXED_XDG_CONFIG_DIRS=""
+while IFS=: read -d: -r DIR; do
+    if [[ -d "$DIR" ]]; then
+        SANDBOXED_XDG_CONFIG_DIRS="$SANDBOXED_XDG_CONFIG_DIRS$SEP$(realpath "$DIR")"
         if [[ -z "$SEP" ]]; then
             SEP=":"
         fi
@@ -48,10 +59,10 @@ while IFS=: read -d: -r DIR; do
 done <<<"${XDG_CONFIG_DIRS:+"${XDG_CONFIG_DIRS}:"}"
 
 SEP=""
-NEW_XDG_DATA_DIRS=""
+SANDBOXED_XDG_DATA_DIRS=""
 while IFS=: read -d: -r DIR; do
     if [[ -d "$DIR" ]]; then
-        NEW_XDG_DATA_DIRS="$NEW_XDG_DATA_DIRS$SEP$(realpath "$DIR")"
+        SANDBOXED_XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS$SEP$(realpath "$DIR")"
         if [[ -z "$SEP" ]]; then
             SEP=":"
         fi
@@ -61,37 +72,39 @@ done <<<"${XDG_DATA_DIRS:+"${XDG_DATA_DIRS}:"}"
 # Set defaults for XDG variables
 #
 if [[ -z "$XDG_CACHE_HOME" ]]; then
-    export XDG_CACHE_HOME="$HOME"/.cache
+    export XDG_CACHE_HOME="$(realpath "$HOME"/.cache)"
 fi
 if [[ -z "$XDG_CONFIG_HOME" ]]; then
-    export XDG_CONFIG_HOME="$HOME"/.config
+    export XDG_CONFIG_HOME="$(realpath "$HOME"/.config)"
 fi
 if [[ -z "$XDG_DATA_HOME" ]]; then
-    export XDG_DATA_HOME="$HOME"/.local/share
+    export XDG_DATA_HOME="$(realpath "$HOME"/.local/share)"
 fi
 if [[ -z "$XDG_STATE_HOME" ]]; then
-    export XDG_STATE_HOME="$HOME"/.local/state
+    export XDG_STATE_HOME="$(realpath "$HOME"/.local/state)"
 fi
 
 # Launch Claude Code (but only if not called recursively to avoid
 # sandboxing the sandbox)
 #
 if [[ -n "$CLAUDE_CODE_PATH" ]]; then
-    if [[ -z "$CLAUDECODE" ]]; then
-        # Note that all of the allow/allow-file/read/read-fil lines
+    if [[ -z "$CLAUDECODE" ]] && [[ -z "$NONO_CAP_FILE" ]]; then
+        # Note that all of the allow/allow-file/read/read-file lines
         # (except for `--allow .`) can be replaced by a custom profile
         # once nono v0.6.0 hits nixpkgs-unstable
         #
         # shellcheck disable=SC2046
         exec env -S \
-            $([[ -z "$NEW_PATH" ]] && echo -n "-u PATH") \
-            $([[ -z "$NEW_MANPATH" ]] && echo -n "-u MANPATH") \
-            $([[ -z "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
-            $([[ -z "$NEW_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
-            $([[ -n "$NEW_PATH" ]] && echo -n "PATH=\"$NEW_PATH\"") \
-            $([[ -n "$NEW_MANPATH" ]] && echo -n "MANPATH=\"$NEW_MANPATH\"") \
-            $([[ -n "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$NEW_XDG_CONFIG_DIRS\"") \
-            $([[ -n "$NEW_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$NEW_XDG_DATA_DIRS\"") \
+            $([[ -z "$SANDBOXED_PATH" ]] && echo -n "-u PATH") \
+            $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
+            $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \
+            $([[ -z "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
+            $([[ -z "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
+            $([[ -n "$SANDBOXED_PATH" ]] && echo -n "PATH=\"$SANDBOXED_PATH\"") \
+            $([[ -n "$SANDBOXED_MANPATH" ]] && echo -n "MANPATH=\"$SANDBOXED_MANPATH\"") \
+            $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "TERMINFO_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
+            $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
+            $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
             CLAUDE_CODE_SHELL="$(realpath $(which bash))" \
             "$(realpath "$(which nono)")" run \
             --profile claude-code \
@@ -104,6 +117,7 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
             $([[ -d "$XDG_CACHE_HOME"/uv ]] && echo -n "--allow $XDG_CACHE_HOME/uv") \
             $([[ -d "$XDG_CONFIG_HOME"/fish ]] && echo -n "--allow $XDG_CONFIG_HOME/fish") \
             $([[ -d "$XDG_CONFIG_HOME"/go ]] && echo -n "--allow $XDG_CONFIG_HOME/go") \
+            $([[ -d "$XDG_CONFIG_HOME"/zsh ]] && echo -n "--allow $XDG_CONFIG_HOME/zsh") \
             $([[ -d "$XDG_DATA_HOME"/delta ]] && echo -n "--allow $XDG_DATA_HOME/delta") \
             $([[ -d "$XDG_DATA_HOME"/fish ]] && echo -n "--allow $XDG_DATA_HOME/fish") \
             $([[ -d "$XDG_DATA_HOME"/pnpm ]] && echo -n "--allow $XDG_DATA_HOME/pnpm") \
