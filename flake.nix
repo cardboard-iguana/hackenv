@@ -47,12 +47,7 @@
             #### Python tooling ####
             (pkgs.python3.withPackages (pythonPackages: [
               pythonPackages.impacket
-              pythonPackages.markitdown
-              pythonPackages.mitmproxy
               pythonPackages.shodan
-              pythonPackages.solc-select
-              pythonPackages.sqlmap
-              pythonPackages.wfuzz
             ]))
             uv
 
@@ -76,41 +71,35 @@
             socat
 
             #### Useful tools ####
-            aircrack-ng
-            android-tools
-            arping
             asciinema_3
             (caido.override {appVariants = ["cli"];})
             cewl
             curlFull
-            dirbuster # Just for the wordlists...
             evil-winrm
             exploitdb
             freerdp
-            fuzzdb
             gobuster
             hashcat
             hashcat-utils
             john
             kerbrute
-            masscan
             metasploit
             mimikatz
+            mitmproxy
             nbtscan
             netcat-gnu
             nikto
             nmap
             openvpn
-            powershell
             powersploit
             powerview
-            proxychains-ng
             recon-ng
             responder
             rlwrap
-            seclists
             smbmap
-            tcpdump
+            solc-select
+            sqlite
+            sqlmap
             termshark
             theharvester
             tinyxxd
@@ -118,9 +107,7 @@
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
             enum4linux-ng # 2026-02-15 Build currently fails on macOS because of samba dependency
-            gdb # 2026-02-15 Build currently fails on macOS - https://github.com/NixOS/nixpkgs/issues/483562
             ike-scan
-            linux-exploit-suggester
             netexec # Marked as broken on macOS
             samba # 2026-02-15 Build currently fails on macOS
             strace # Used by the Anthropic Sandbox Runtime (part of Claude Code)
