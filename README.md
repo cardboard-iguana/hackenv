@@ -1,6 +1,6 @@
 # hackenv
 
-Automatically configure directory-based hacking / pentest environments. The successor to [Disposable Kali](https://github.com/cardboard-iguana/disposable-kali). Currently targets macOS and [Debian](https://debian.org) VMs (though any [FHS](https://refspecs.linuxfoundation.org/fhs.shtml)-comliant Linux distro should work).
+Automatically configure directory-based hacking / pentest environments. The successor to [Disposable Kali](https://github.com/cardboard-iguana/disposable-kali). Currently targets [macOS](https://www.apple.com/os/macos/) and [Debian](https://debian.org) VMs (though any [FHS](https://refspecs.linuxfoundation.org/fhs.shtml)-comliant Linux distro should work).
 
 ## Prerequisits
 
