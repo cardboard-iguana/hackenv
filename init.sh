@@ -32,8 +32,9 @@ if [[ -e "$DESTINATION_DIR" ]]; then
     echo "$DESTINATION_DIR already exists!"
     exit 1
 fi
-mkdir -p "$(dirname "$DESTINATION_DIR")"/appdata
+mkdir -p "$(dirname "$DESTINATION_DIR")"
 cp -af "$SOURCE_DIR" "$DESTINATION_DIR"
+mkdir -p "$DESTINATION_DIR"/appdata
 rm -rf "$DESTINATION_DIR"/.git \
     "$DESTINATION_DIR"/init.sh \
     "$DESTINATION_DIR"/LICENSE \

@@ -85,7 +85,7 @@
             kerbrute
             metasploit
             mimikatz
-            mitmproxy
+            #mitmproxy # 2026-02-24 Build currently failing - https://github.com/NixOS/nixpkgs/issues/493860
             nbtscan
             netcat-gnu
             nikto
@@ -101,7 +101,7 @@
             sqlite
             sqlmap
             termshark
-            theharvester
+            #theharvester # 2026-02-24 Build currently failing - https://github.com/NixOS/nixpkgs/issues/493605
             tinyxxd
             tshark
           ]
@@ -116,8 +116,11 @@
 
         # Expose wordlist directories to direnv for further setup
         #
+        # 2026-02-24 Build failing for ${pkgs.wfuzz}/share/wordlists/wfuzz
+        #  - https://github.com/NixOS/nixpkgs/issues/493740
+        #
         shellHook = ''
-          export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists:${pkgs.wfuzz}/share/wordlists/wfuzz"
+          export WORDLISTS="${pkgs.dirbuster}/share/dirbuster:${pkgs.fuzzdb}/share/wordlists/fuzzdb:${pkgs.seclists}/share/wordlists/seclists"
         '';
       };
     });

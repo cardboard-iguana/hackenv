@@ -17,7 +17,6 @@
 #### Ignore in template git repo but not live environments #############
 
 # Ignore lock files
-/flake.lock
 /Gemfile.lock
 /package-lock.json
 /pdm.lock
@@ -32,10 +31,8 @@
 # Per-environment application data
 /appdata/android/
 /appdata/lesshst
-/appdata/macOS/
 /appdata/metasploit/
 /appdata/nikto.conf
-/appdata/proxychains.conf
 /appdata/solc-select/
 /appdata/sqlite_history
 /appdata/wireshark/
