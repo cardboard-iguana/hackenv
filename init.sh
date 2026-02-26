@@ -27,7 +27,7 @@ ENVIRONMENT_NAME="$(echo "$ENVIRONMENT_NAME_FOR_HUMANS" | tr "[:upper:]" "[:lowe
 
 # Copy template directory
 #
-DESTINATION_DIR="$(realpath "$HOME")"/engagements/"$ENVIRONMENT_NAME"
+DESTINATION_DIR="$(realpath "$HOME")"/Engagements/"$ENVIRONMENT_NAME"
 if [[ -e "$DESTINATION_DIR" ]]; then
     echo "$DESTINATION_DIR already exists!"
     exit 1

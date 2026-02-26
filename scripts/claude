@@ -117,16 +117,11 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
             "$(realpath "$(which nono)")" run \
             --profile claude-code \
             --allow "$(get_direnv_path "$(dirname "$(realpath "$0")")")" \
-            $([[ -d "$HOME"/.bash_sessions ]] && echo -n "--allow $HOME/.bash_sessions") \
-            $([[ -d "$XDG_CACHE_HOME"/fish ]] && echo -n "--allow $XDG_CACHE_HOME/fish") \
             $([[ -d "$XDG_CACHE_HOME"/go-build ]] && echo -n "--allow $XDG_CACHE_HOME/go-build") \
             $([[ -d "$XDG_CACHE_HOME"/pip ]] && echo -n "--allow $XDG_CACHE_HOME/pip") \
             $([[ -d "$XDG_CACHE_HOME"/pnpm ]] && echo -n "--allow $XDG_CACHE_HOME/pnpm") \
-            $([[ -d "$XDG_CACHE_HOME"/starship ]] && echo -n "--allow $XDG_CACHE_HOME/starship") \
             $([[ -d "$XDG_CACHE_HOME"/uv ]] && echo -n "--allow $XDG_CACHE_HOME/uv") \
             $([[ -d "$XDG_CONFIG_HOME"/go ]] && echo -n "--allow $XDG_CONFIG_HOME/go") \
-            $([[ -d "$XDG_CONFIG_HOME"/zsh ]] && echo -n "--allow $XDG_CONFIG_HOME/zsh") \
-            $([[ -d "$XDG_DATA_HOME"/fish ]] && echo -n "--allow $XDG_DATA_HOME/fish") \
             $([[ -d "$XDG_DATA_HOME"/pnpm ]] && echo -n "--allow $XDG_DATA_HOME/pnpm") \
             $([[ -d "$XDG_STATE_HOME"/pnpm ]] && echo -n "--allow $XDG_STATE_HOME/pnpm") \
             $([[ -d /tmp ]] && echo -n "--allow /tmp") \
@@ -135,11 +130,8 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
             $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
             $([[ -d "$HOME"/Library/"Application Support"/Chromium ]] && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
             $([[ -d "$HOME"/Library/"Application Support"/Google/Chrome ]] && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
-            $([[ -d "$XDG_CACHE_HOME"/bat ]] && echo -n "--read $XDG_CACHE_HOME/bat") \
             $([[ -d "$XDG_CONFIG_HOME"/chromium ]] && echo -n "--read $XDG_CONFIG_HOME/chromium") \
-            $([[ -d "$XDG_CONFIG_HOME"/fish ]] && echo -n "--read $XDG_CONFIG_HOME/fish") \
             $([[ -d "$XDG_CONFIG_HOME"/google-chrome ]] && echo -n "--read $XDG_CONFIG_HOME/google-chrome") \
-            $([[ -d "$XDG_CONFIG_HOME"/starship ]] && echo -n "--read $XDG_CONFIG_HOME/starship") \
             $([[ -d /etc/skel ]] && echo -n "--read /etc/skel") \
             $([[ -d /nix ]] && echo -n "--read /nix") \
             $([[ -e "$HOME"/.bash_aliases ]] && echo -n "--read-file $HOME/.bash_aliases") \
