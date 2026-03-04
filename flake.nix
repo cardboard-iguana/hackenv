@@ -74,7 +74,7 @@
             asciinema_3
             (caido.override {appVariants = ["cli"];})
             cewl
-            curlFull
+            curl
             evil-winrm
             exploitdb
             freerdp
