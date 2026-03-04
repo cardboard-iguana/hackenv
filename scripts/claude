@@ -99,7 +99,7 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
         #
         # Note that all of the allow/allow-file/read/read-file lines
         # (except for `--allow .`) can be replaced by a custom profile
-        # once nono v0.6.0 hits nixpkgs-unstable
+        # once nono > 0.6.0 is available in nixpkgs-unstable
         #
         # shellcheck disable=SC2046,SC2140,SC2294
         eval env -S \
