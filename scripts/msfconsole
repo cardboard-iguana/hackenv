@@ -50,6 +50,9 @@ touch "$MSF_CFGROOT_CONFIG"/clients/"$MSFCONSOLE_CLIENT_ID"
 "$MSFCONSOLE_PATH" "$@"
 
 rm "$MSF_CFGROOT_CONFIG"/clients/"$MSFCONSOLE_CLIENT_ID"
+
+# Shut down PostgreSQL, if there are no other clients connected
+#
 if [[ $(find "$MSF_CFGROOT_CONFIG"/clients -type f | wc -l) -eq 0 ]]; then
     msfdb stop
 fi
