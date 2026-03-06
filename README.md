@@ -19,9 +19,11 @@ git clone https://github.com/cardboard-iguana/hackenv.git
 cd hackenv
 ./init.sh "My Engagement"
 
-~/Engagements/my_engagement/scripts/wrap-shell # OR JUST: cd ~/Engagements/my_engagement
+cd ~/Engagements/my_engagement
 ```
 
-The `wrap-shell` script handles automatically starting and stopping PostgreSQL and Asciinema, and is intended just to make console logging and `msfconsole` a little faster / less painful. Note that the `msfconsole` wrapper will also handle PostgreSQL startup and shutdown (if necessary).
+The `msfconsole` wrapper will handle startup and shutdown of the associated PostgreSQL database automatically.
 
 The `browser` script can be used to launch an isolated Chromium-based browser pre-configured to proxy through localhost:8080.
+
+The `record` script can be used to initiate a recording of your terminal session.

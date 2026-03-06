@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 # Load libenv.sh
 #
 source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
@@ -9,20 +7,49 @@ source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 # Determine environment directory
 #
 ENVIRONMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
+MSF_CFGROOT_CONFIG="$ENVIRONMENT_DIRECTORY"/appdata/metasploit
 
 # Determine msfconsole executable
 #
 MSFCONSOLE_PATH="$(unmask_executable msfconsole)"
 
-# Run msfconsole
+# Exit early if MSFCONSOLE_PATH is empty
 #
-if [[ -n "$MSFCONSOLE_PATH" ]]; then
-    start_msfdb "$ENVIRONMENT_DIRECTORY"
-
-    "$MSFCONSOLE_PATH" msfConfigRoot="$(get_msf_config_root "$ENVIRONMENT_DIRECTORY")" "$@"
-
-    stop_msfdb "$ENVIRONMENT_DIRECTORY"
-else
+if [[ -z "$MSFCONSOLE_PATH" ]]; then
     echo "Real msfconsole executable not found!"
     exit 1
+fi
+
+# Create the MSF_CFGROOT, if necessary
+#
+if [[ ! -d "$MSF_CFGROOT_CONFIG" ]]; then
+    mkdir -p "$MSF_CFGROOT_CONFIG"
+fi
+if [[ ! -d "$MSF_CFGROOT_CONFIG"/db ]]; then
+    msfdb init
+fi
+
+# Remove old PostgreSQL PID file, if applicable
+#
+if [[ -f "$MSF_CFGROOT_CONFIG"/db/postmaster.pid ]] && [[ -z "$(pgrep -F "$MSF_CFGROOT_CONFIG"/db/postmaster.pid)" ]]; then
+    rm "$MSF_CFGROOT_CONFIG"/db/postmaster.pid
+fi
+
+# Start PostgreSQL, if it's not already running
+#
+if [[ ! -f "$MSF_CFGROOT_CONFIG"/db/postmaster.pid ]]; then
+    msfdb start
+fi
+
+# Run msfconsole
+#
+MSFCONSOLE_CLIENT_ID="$(uuidgen)"
+mkdir -p "$MSF_CFGROOT_CONFIG"/clients
+touch "$MSF_CFGROOT_CONFIG"/clients/"$MSFCONSOLE_CLIENT_ID"
+
+"$MSFCONSOLE_PATH" "$@"
+
+rm "$MSF_CFGROOT_CONFIG"/clients/"$MSFCONSOLE_CLIENT_ID"
+if [[ $(find "$MSF_CFGROOT_CONFIG"/clients -type f | wc -l) -eq 0 ]]; then
+    msfdb stop
 fi

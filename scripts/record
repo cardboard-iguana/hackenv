@@ -10,14 +10,6 @@ source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 #
 ENVIRONMENT_DIRECTORY="$(get_direnv_path "$(dirname "$(realpath "$0")")")"
 
-# Make sure we're actually in the environment directory and direnv is
-# loaded
-#
-if [[ ! "$(realpath "$(pwd)")"/ =~ "$ENVIRONMENT_DIRECTORY"/* ]]; then
-    cd "$ENVIRONMENT_DIRECTORY"
-    eval "$(direnv export bash)"
-fi
-
 # Set recording file information
 #
 RECORDING_PATH="$ENVIRONMENT_DIRECTORY"/artifacts
@@ -45,10 +37,6 @@ if [[ -z "$SHELL_COMMAND" ]]; then
     fi
 fi
 
-# Start Metasploit database and record session
+# Start recording session
 #
-start_msfdb "$ENVIRONMENT_DIRECTORY"
-
 asciinema rec --command "$SHELL_COMMAND" --idle-time-limit 2 "$RECORDING_PATH"/"${RECORDING_NAME}.cast"
-
-stop_msfdb "$ENVIRONMENT_DIRECTORY"

@@ -33,8 +33,7 @@
     devShells = forEachSystem ({pkgs}: {
       default = pkgs.mkShell {
         # Pass pkgs.bashInteractive as a build input, since otherwise
-        # bash subshells (including ones that may be spawned by
-        # wrap-shell) are broken
+        # bash subshells are broken
         #
         #   https://discourse.nixos.org/t/non-interactive-bash-errors-from-flake-nix-mkshell/33310
         #
