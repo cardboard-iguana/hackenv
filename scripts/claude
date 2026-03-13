@@ -71,17 +71,10 @@ done <<<"${XDG_DATA_DIRS:+"${XDG_DATA_DIRS}:"}"
 
 # Set defaults for XDG variables
 #
-XDG_CACHE_HOME="$(realpath "${XDG_CACHE_HOME:-$HOME/.cache}")"
-export XDG_CACHE_HOME
-
-XDG_CONFIG_HOME="$(realpath "${XDG_CONFIG_HOME:-$HOME/.config}")"
-export XDG_CONFIG_HOME
-
-XDG_DATA_HOME="$(realpath "${XDG_DATA_HOME:-$HOME/.local/share}")"
-export XDG_DATA_HOME
-
-XDG_STATE_HOME="$(realpath "${XDG_STATE_HOME:-$HOME/.local/state}")"
-export XDG_STATE_HOME
+SANDBOXED_XDG_CACHE_HOME="$(realpath "${XDG_CACHE_HOME:-$HOME/.cache}")"
+SANDBOXED_XDG_CONFIG_HOME="$(realpath "${XDG_CONFIG_HOME:-$HOME/.config}")"
+SANDBOXED_XDG_DATA_HOME="$(realpath "${XDG_DATA_HOME:-$HOME/.local/share}")"
+SANDBOXED_XDG_STATE_HOME="$(realpath "${XDG_STATE_HOME:-$HOME/.local/state}")"
 
 # Launch Claude Code (but only if not called recursively to avoid
 # sandboxing the sandbox)
@@ -98,16 +91,19 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
         #
         # shellcheck disable=SC2046,SC2140,SC2294
         eval env -S \
-            $([[ -z "$SANDBOXED_PATH" ]] && echo -n "-u PATH") \
             $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
             $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \
             $([[ -z "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
             $([[ -z "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
-            $([[ -n "$SANDBOXED_PATH" ]] && echo -n "PATH=\"$SANDBOXED_PATH\"") \
             $([[ -n "$SANDBOXED_MANPATH" ]] && echo -n "MANPATH=\"$SANDBOXED_MANPATH\"") \
             $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "TERMINFO_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
             $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
             $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
+            PATH="$SANDBOXED_PATH" \
+            XDG_CACHE_HOME="$SANDBOXED_XDG_CACHE_HOME" \
+            XDG_CONFIG_HOME="$SANDBOXED_XDG_CONFIG_HOME" \
+            XDG_DATA_HOME="$SANDBOXED_XDG_DATA_HOME" \
+            XDG_STATE_HOME="$SANDBOXED_XDG_STATE_HOME" \
             CLAUDE_CODE_SHELL="$(realpath $(which bash))" \
             "$(realpath "$(which nono)")" run \
             --profile claude-code \
