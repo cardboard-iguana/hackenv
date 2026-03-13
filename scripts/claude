@@ -71,22 +71,17 @@ done <<<"${XDG_DATA_DIRS:+"${XDG_DATA_DIRS}:"}"
 
 # Set defaults for XDG variables
 #
-if [[ -z "$XDG_CACHE_HOME" ]]; then
-    XDG_CACHE_HOME="$(realpath "$HOME"/.cache)"
-    export XDG_CACHE_HOME
-fi
-if [[ -z "$XDG_CONFIG_HOME" ]]; then
-    XDG_CONFIG_HOME="$(realpath "$HOME"/.config)"
-    export XDG_CONFIG_HOME
-fi
-if [[ -z "$XDG_DATA_HOME" ]]; then
-    XDG_DATA_HOME="$(realpath "$HOME"/.local/share)"
-    export XDG_DATA_HOME
-fi
-if [[ -z "$XDG_STATE_HOME" ]]; then
-    XDG_STATE_HOME="$(realpath "$HOME"/.local/state)"
-    export XDG_STATE_HOME
-fi
+XDG_CACHE_HOME="$(realpath "${XDG_CACHE_HOME:-$HOME/.cache}")"
+export XDG_CACHE_HOME
+
+XDG_CONFIG_HOME="$(realpath "${XDG_CONFIG_HOME:-$HOME/.config}")"
+export XDG_CONFIG_HOME
+
+XDG_DATA_HOME="$(realpath "${XDG_DATA_HOME:-$HOME/.local/share}")"
+export XDG_DATA_HOME
+
+XDG_STATE_HOME="$(realpath "${XDG_STATE_HOME:-$HOME/.local/state}")"
+export XDG_STATE_HOME
 
 # Launch Claude Code (but only if not called recursively to avoid
 # sandboxing the sandbox)
