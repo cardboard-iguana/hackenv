@@ -90,6 +90,11 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
         # once nono > 0.6.0 is available in nixpkgs-unstable (this will
         # *also* let us drop the `eval`)
         #
+        # Information about the ENABLE_LSP_TOOL option:
+        #
+        #   https://karanbansal.in/blog/claude-code-lsp/
+        #   https://github.com/anthropics/claude-code/issues/15619
+        #
         # shellcheck disable=SC2046,SC2140,SC2294
         eval env -S \
             $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
