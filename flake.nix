@@ -63,11 +63,33 @@
             gnutar # backup-environment
             postgresql # metasploit
 
-            #### Claude ####
+            #### Claude Code ####
             claude-code
             nono
             ripgrep
             socat
+
+            #### Formatters & Linters ####
+            prettier
+            rslint
+            ruff
+            shellcheck
+            shfmt
+
+            #### Language Servers ####
+            clang-tools
+            #csharp-ls # 2026-03-13 - Broken on macOS ARM, plugin must be hard-coded in .claude/settings.json
+            gopls
+            intelephense
+            jdt-language-server
+            kotlin-language-server
+            lua-language-server
+            pyright
+            rust-analyzer
+            sourcekit-lsp
+            swift
+            typescript
+            typescript-language-server
 
             #### Useful tools ####
             asciinema_3

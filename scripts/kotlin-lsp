@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# This script works around the fact that Claude Code expects the Kotlin
+# language server to be `kotlin-lsp`, but Nixpkgs uses the name
+# `kotlin-language-server`
+
+set -e
+
+# Load libenv.sh
+#
+source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
+
+# Determine Kotlin LSP executable
+#
+KOTLIN_LSP_PATH="$(unmask_executable kotlin-language-server)"
+
+# Launch Kotlin LSP
+#
+if [[ -n "$KOTLIN_LSP_PATH" ]]; then
+    exec "$KOTLIN_LSP_PATH" "$@"
+else
+    echo "Real Kotlin LSP executable not found!"
+    exit 1
+fi
