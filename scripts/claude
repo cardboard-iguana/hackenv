@@ -115,16 +115,18 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
             "$(realpath "$(which nono)")" run \
             --profile claude-code \
             --allow "$(get_direnv_path "$(dirname "$(realpath "$0")")")" \
-            $([[ -d "$XDG_CACHE_HOME"/go-build ]] && echo -n "--allow $XDG_CACHE_HOME/go-build") \
-            $([[ -d "$XDG_CACHE_HOME"/pip ]] && echo -n "--allow $XDG_CACHE_HOME/pip") \
-            $([[ -d "$XDG_CACHE_HOME"/pnpm ]] && echo -n "--allow $XDG_CACHE_HOME/pnpm") \
-            $([[ -d "$XDG_CACHE_HOME"/uv ]] && echo -n "--allow $XDG_CACHE_HOME/uv") \
+            $([[ -d "$XDG_CACHE_HOME" ]] && echo -n "--allow $XDG_CACHE_HOME") \
             $([[ -d "$XDG_CONFIG_HOME"/go ]] && echo -n "--allow $XDG_CONFIG_HOME/go") \
+            $([[ -d "$XDG_DATA_HOME"/claude ]] && echo -n "--allow $XDG_DATA_HOME/claude") \
             $([[ -d "$XDG_DATA_HOME"/pnpm ]] && echo -n "--allow $XDG_DATA_HOME/pnpm") \
             $([[ -d "$XDG_STATE_HOME"/pnpm ]] && echo -n "--allow $XDG_STATE_HOME/pnpm") \
             $([[ -d /tmp ]] && echo -n "--allow /tmp") \
             $([[ -d /var/folders ]] && echo -n "--allow /var/folders") \
             $([[ -e /dev/null ]] && echo -n "--allow-file /dev/null") \
+            $([[ -e "$HOME"/.claude.json ]] && echo -n "--allow-file $HOME/.claude.json") \
+            $([[ -e "$HOME"/.claude.json.lock ]] && echo -n "--allow-file $HOME/.claude.json.lock") \
+            $([[ -e "$HOME"/.claude.lock ]] && echo -n "--allow-file $HOME/.claude.lock") \
+            $([[ -e "$HOME"/Library/Keychains/login.keychain-db ]] && echo -n "--allow-file $HOME/Library/Keychains/login.keychain-db") \
             $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
             $([[ -d "$HOME"/Library/"Application Support"/Chromium ]] && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
             $([[ -d "$HOME"/Library/"Application Support"/Google/Chrome ]] && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
