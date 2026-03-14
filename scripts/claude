@@ -10,77 +10,77 @@ source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 #
 CLAUDE_CODE_PATH="$(unmask_executable claude)"
 
-# Resolve (potentially) critical paths in the environment, as nono will
-# not follow home-manager's symlinks without making all of $HOME
-# readable
-#
-SEP=""
-SANDBOXED_PATH=""
-while IFS=: read -d: -r DIR; do
-    if [[ -d "$DIR" ]]; then
-        SANDBOXED_PATH="$SANDBOXED_PATH$SEP$(realpath "$DIR")"
-        if [[ -z "$SEP" ]]; then
-            SEP=":"
-        fi
-    fi
-done <<<"${PATH:+"${PATH}:"}"
-
-SEP=""
-SANDBOXED_MANPATH=""
-while IFS=: read -d: -r DIR; do
-    if [[ -d "$DIR" ]]; then
-        SANDBOXED_MANPATH="$SANDBOXED_MANPATH$SEP$(realpath "$DIR")"
-        if [[ -z "$SEP" ]]; then
-            SEP=":"
-        fi
-    fi
-done <<<"${MANPATH:+"${MANPATH}:"}"
-
-SEP=""
-SANDBOXED_TERMINFO_DIRS=""
-while IFS=: read -d: -r DIR; do
-    if [[ -d "$DIR" ]]; then
-        SANDBOXED_TERMINFO_DIRS="$SANDBOXED_TERMINFO_DIRS$SEP$(realpath "$DIR")"
-        if [[ -z "$SEP" ]]; then
-            SEP=":"
-        fi
-    fi
-done <<<"${TERMINFO_DIRS:+"${TERMINFO_DIRS}:"}"
-
-SEP=""
-SANDBOXED_XDG_CONFIG_DIRS=""
-while IFS=: read -d: -r DIR; do
-    if [[ -d "$DIR" ]]; then
-        SANDBOXED_XDG_CONFIG_DIRS="$SANDBOXED_XDG_CONFIG_DIRS$SEP$(realpath "$DIR")"
-        if [[ -z "$SEP" ]]; then
-            SEP=":"
-        fi
-    fi
-done <<<"${XDG_CONFIG_DIRS:+"${XDG_CONFIG_DIRS}:"}"
-
-SEP=""
-SANDBOXED_XDG_DATA_DIRS=""
-while IFS=: read -d: -r DIR; do
-    if [[ -d "$DIR" ]]; then
-        SANDBOXED_XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS$SEP$(realpath "$DIR")"
-        if [[ -z "$SEP" ]]; then
-            SEP=":"
-        fi
-    fi
-done <<<"${XDG_DATA_DIRS:+"${XDG_DATA_DIRS}:"}"
-
-# Set defaults for XDG variables
-#
-SANDBOXED_XDG_CACHE_HOME="$(realpath "${XDG_CACHE_HOME:-$HOME/.cache}")"
-SANDBOXED_XDG_CONFIG_HOME="$(realpath "${XDG_CONFIG_HOME:-$HOME/.config}")"
-SANDBOXED_XDG_DATA_HOME="$(realpath "${XDG_DATA_HOME:-$HOME/.local/share}")"
-SANDBOXED_XDG_STATE_HOME="$(realpath "${XDG_STATE_HOME:-$HOME/.local/state}")"
-
 # Launch Claude Code (but only if not called recursively to avoid
 # sandboxing the sandbox)
 #
 if [[ -n "$CLAUDE_CODE_PATH" ]]; then
     if [[ -z "$CLAUDECODE" ]] && [[ -z "$NONO_CAP_FILE" ]]; then
+        # Resolve (potentially) critical paths in the environment, as nono will
+        # not follow home-manager's symlinks without making all of $HOME
+        # readable
+        #
+        SEP=""
+        SANDBOXED_PATH=""
+        while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+                SANDBOXED_PATH="$SANDBOXED_PATH$SEP$(realpath "$DIR")"
+                if [[ -z "$SEP" ]]; then
+                    SEP=":"
+                fi
+            fi
+        done <<<"${PATH:+"${PATH}:"}"
+
+        SEP=""
+        SANDBOXED_MANPATH=""
+        while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+                SANDBOXED_MANPATH="$SANDBOXED_MANPATH$SEP$(realpath "$DIR")"
+                if [[ -z "$SEP" ]]; then
+                    SEP=":"
+                fi
+            fi
+        done <<<"${MANPATH:+"${MANPATH}:"}"
+
+        SEP=""
+        SANDBOXED_TERMINFO_DIRS=""
+        while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+                SANDBOXED_TERMINFO_DIRS="$SANDBOXED_TERMINFO_DIRS$SEP$(realpath "$DIR")"
+                if [[ -z "$SEP" ]]; then
+                    SEP=":"
+                fi
+            fi
+        done <<<"${TERMINFO_DIRS:+"${TERMINFO_DIRS}:"}"
+
+        SEP=""
+        SANDBOXED_XDG_CONFIG_DIRS=""
+        while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+                SANDBOXED_XDG_CONFIG_DIRS="$SANDBOXED_XDG_CONFIG_DIRS$SEP$(realpath "$DIR")"
+                if [[ -z "$SEP" ]]; then
+                    SEP=":"
+                fi
+            fi
+        done <<<"${XDG_CONFIG_DIRS:+"${XDG_CONFIG_DIRS}:"}"
+
+        SEP=""
+        SANDBOXED_XDG_DATA_DIRS=""
+        while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+                SANDBOXED_XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS$SEP$(realpath "$DIR")"
+                if [[ -z "$SEP" ]]; then
+                    SEP=":"
+                fi
+            fi
+        done <<<"${XDG_DATA_DIRS:+"${XDG_DATA_DIRS}:"}"
+
+        # Set defaults for XDG variables
+        #
+        SANDBOXED_XDG_CACHE_HOME="$(realpath "${XDG_CACHE_HOME:-$HOME/.cache}")"
+        SANDBOXED_XDG_CONFIG_HOME="$(realpath "${XDG_CONFIG_HOME:-$HOME/.config}")"
+        SANDBOXED_XDG_DATA_HOME="$(realpath "${XDG_DATA_HOME:-$HOME/.local/share}")"
+        SANDBOXED_XDG_STATE_HOME="$(realpath "${XDG_STATE_HOME:-$HOME/.local/state}")"
+
         # FIXME: Figure out the escaping issues below so that I can use
         # `exec` here rather than `eval` (this will also let me stop
         # disabling SC2294, and maybe SC2140)
