@@ -127,11 +127,9 @@ if [[ -n "$CLAUDE_CODE_PATH" ]]; then
             $([[ -e "$HOME"/.claude.json.lock ]] && echo -n "--allow-file $HOME/.claude.json.lock") \
             $([[ -e "$HOME"/.claude.lock ]] && echo -n "--allow-file $HOME/.claude.lock") \
             $([[ -e "$HOME"/Library/Keychains/login.keychain-db ]] && echo -n "--allow-file $HOME/Library/Keychains/login.keychain-db") \
-            $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
             $([[ -d "$HOME"/Library/"Application Support"/Chromium ]] && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
             $([[ -d "$HOME"/Library/"Application Support"/Google/Chrome ]] && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
             $([[ -d "$XDG_CONFIG_HOME"/chromium ]] && echo -n "--read $XDG_CONFIG_HOME/chromium") \
-            $([[ -d "$XDG_CONFIG_HOME"/git ]] && echo -n "--read $XDG_CONFIG_HOME/git") \
             $([[ -d "$XDG_CONFIG_HOME"/google-chrome ]] && echo -n "--read $XDG_CONFIG_HOME/google-chrome") \
             $([[ -d /etc/skel ]] && echo -n "--read /etc/skel") \
             $([[ -d /nix ]] && echo -n "--read /nix") \
