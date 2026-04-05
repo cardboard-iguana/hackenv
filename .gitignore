@@ -13,7 +13,7 @@
 .env.*
 !.env.example
 
-########################################################################
+########################################################## BEGIN: REMOVE
 #### Ignore in template git repo but not live environments #############
 
 # Ignore lock files
@@ -41,7 +41,7 @@
 /artifacts/
 /wordlists/
 
-########################################################################
+############################################################ END: REMOVE
 #### Standard GitHub Nix .gitignore ####################################
 
 # Ignore build outputs from performing a nix-build or `nix build` command

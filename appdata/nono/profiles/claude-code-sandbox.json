@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "name": "claude-code-sandbox"
+  },
+  "extends": "claude-code",
+  "security": {
+    "groups": [
+      "go_runtime"
+    ]
+  },
+  "filesystem": {
+    "read": [
+      "/etc/bash_completion.d",
+      "/etc/profile.d"
+    ],
+    "read_file": [
+      "~/.bash_aliases",
+      "~/.bash_profile",
+      "~/.bashrc",
+      "~/.profile",
+      "/etc/bash.bashrc",
+      "/etc/bashrc",
+      "/etc/bashrc_Apple_Terminal",
+      "/etc/profile",
+      "/etc/skel/.bash_profile",
+      "/etc/skel/.bashrc",
+      "/etc/skel/.profile"
+    ]
+  }
+}

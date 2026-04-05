@@ -62,7 +62,7 @@ cp "$SCRATCH_FILE" "$DESTINATION_DIR"/SYSTEM_INFO.txt
 
 # Remove .gitignore directive block that's only relevant for the template repo
 #
-sed '/^#\{72\}$/,/^#\{72\}$/d' "$DESTINATION_DIR"/.gitignore >"$SCRATCH_FILE"
+awk '/^####+ BEGIN: REMOVE$/,/^####+ END: REMOVE$/ { next } 1' "$DESTINATION_DIR"/.gitignore >"$SCRATCH_FILE"
 cp "$SCRATCH_FILE" "$DESTINATION_DIR"/.gitignore
 
 # Remove scratch file
