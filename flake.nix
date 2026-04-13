@@ -151,6 +151,9 @@
             theharvester
             tinyxxd
             tshark
+
+            #### GUI apps ####
+            ungoogled-chromium
           ];
 
           # Expose wordlist directories to direnv for further setup

@@ -8,24 +8,14 @@ source "$(dirname "$(realpath "$0")")"/shlib/libenv.sh
 
 # Determine Chromium executable
 #
-if [[ -n "$(which chromium 2>/dev/null)" ]]; then
-    BROWSER_PATH="$(which chromium)"
-elif [[ -n "$(which chrome 2>/dev/null)" ]]; then
-    BROWSER_PATH="$(which chrome)"
-elif [[ -n "$(which brave 2>/dev/null)" ]]; then
-    BROWSER_PATH="$(which brave)"
-elif [[ -n "$(which msedge 2>/dev/null)" ]]; then
-    BROWSER_PATH="$(which msedge)"
-else
-    BROWSER_PATH=""
-fi
+CHROMIUM_PATH="$(unmask_executable chromium)"
 
-# Launch browser
+# Launch Chromium
 #
-if [[ -n "$BROWSER_PATH" ]]; then
-    exec "$BROWSER_PATH" --user-data-dir="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/browser \
+if [[ -n "$CHROMIUM_PATH" ]]; then
+    exec "$CHROMIUM_PATH" --user-data-dir="$(get_direnv_path "$(dirname "$(realpath "$0")")")"/appdata/browser \
         --proxy-server=http://localhost:8080 "$@"
 else
-    echo "Browser executable not found!"
+    echo "Chromium executable not found!"
     exit 1
 fi
