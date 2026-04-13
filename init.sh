@@ -52,12 +52,7 @@ cp "$SCRATCH_FILE" "$DESTINATION_DIR"/.envrc
 sed "s|{{ENVIRONMENT_NAME_FOR_HUMANS}}|$ENVIRONMENT_NAME_FOR_HUMANS|g" "$DESTINATION_DIR"/flake.nix >"$SCRATCH_FILE"
 cp "$SCRATCH_FILE" "$DESTINATION_DIR"/flake.nix
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    OPERATING_SYSTEM_NAME="$(sw_vers --productName) $(sw_vers --productVersion) ($(sw_vers --buildVersion))"
-else
-    OPERATING_SYSTEM_NAME="$(lsb_release -ds)"
-fi
-sed "s|{{OPERATING_SYSTEM_NAME}}|$OPERATING_SYSTEM_NAME|g;s|{{UNAME_OUTPUT}}|$(uname -a)|g;s|{{NIX_VERSION}}|$(nix --version)|g;s|{{DIRENV_VERSION}}|direnv $(direnv version)|g" "$DESTINATION_DIR"/SYSTEM_INFO.txt >"$SCRATCH_FILE"
+sed "s|{{OPERATING_SYSTEM_NAME}}|$(lsb_release -ds)|g;s|{{UNAME_OUTPUT}}|$(uname -a)|g;s|{{NIX_VERSION}}|$(nix --version)|g;s|{{DIRENV_VERSION}}|direnv $(direnv version)|g" "$DESTINATION_DIR"/SYSTEM_INFO.txt >"$SCRATCH_FILE"
 cp "$SCRATCH_FILE" "$DESTINATION_DIR"/SYSTEM_INFO.txt
 
 # Remove .gitignore directive block that's only relevant for the template repo

@@ -14,9 +14,7 @@ SDL_FREERDP_PATH="$(unmask_executable sdl-freerdp)"
 
 # Determine appropriate FreeRDP implementation
 #
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    FREERDP_PATH="$SDL_FREERDP_PATH"
-elif [[ -n "$WAYLAND_DISPLAY" ]] && [[ -n "$WAYLAND_FREERDP_PATH" ]]; then
+if [[ -n "$WAYLAND_DISPLAY" ]] && [[ -n "$WAYLAND_FREERDP_PATH" ]]; then
     FREERDP_PATH="$WAYLAND_FREERDP_PATH"
 elif [[ -n "$DISPLAY" ]] && [[ -n "$X_FREERDP_PATH" ]]; then
     FREERDP_PATH="$X_FREERDP_PATH"
