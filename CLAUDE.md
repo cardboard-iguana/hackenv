@@ -2,7 +2,9 @@
 
 If you have not already developed a plan, do so before performing any actions, no matter how simple the task. Never shy away from asking clarifying questions.
 
-IMPORTANT: The user hasn't yet provided any context about the current engagement. You should ask detailed questions to make sure you sufficiently understand the system being tested and the rules of engagement before forming any plan or taking any action. Once you believe you understand these details, replace this paragraph in the local CLAUDE.md file (up to the `nono-sandbox-start` line below) with a summary sufficient for you or another agent to intelligently begin working with the system without violating the rules of engagement.
+**When writing code, prioritize readability, simplicity, and security.** Alway include comments that explain the purpose and functionality of significant code blocks in plain language. Make sure that variables have descriptive names, and prefer straight-forward solutions to "clever" approaches that are less intelligble. Write code, comments, and documentation so that a future version of yourself will be able to understand this project quickly and with minimal tokens.
+
+**IMPORTANT: The user hasn't yet provided any context about the current engagement.** You should ask detailed questions to make sure you sufficiently understand the system being tested and the rules of engagement before forming any plan or taking any action. Once you believe you understand these details, replace this paragraph in the local CLAUDE.md file (up to the `nono-sandbox-start` line below) with a summary sufficient for you or another agent to intelligently begin working with the system without violating the rules of engagement.
 
 <!-- nono-sandbox-start -->
 
