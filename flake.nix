@@ -136,6 +136,7 @@
             nikto
             nmap
             openvpn
+            powershell
             powersploit
             powerview
             recon-ng
