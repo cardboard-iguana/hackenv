@@ -114,7 +114,7 @@
 
             #### Useful tools ####
             asciinema_3
-            (caido.override {appVariants = ["cli"];})
+            caido-cli
             cewl
             curl
             enum4linux-ng
