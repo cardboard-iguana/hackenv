@@ -113,7 +113,7 @@
             typescript-language-server
 
             #### Useful tools ####
-            asciinema_3
+            asciinema
             caido-cli
             cewl
             curl
