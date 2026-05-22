@@ -52,9 +52,6 @@ cp "$SCRATCH_FILE" "$DESTINATION_DIR"/.envrc
 sed "s|{{ENVIRONMENT_NAME_FOR_HUMANS}}|$ENVIRONMENT_NAME_FOR_HUMANS|g" "$DESTINATION_DIR"/flake.nix >"$SCRATCH_FILE"
 cp "$SCRATCH_FILE" "$DESTINATION_DIR"/flake.nix
 
-sed "s|{{OPERATING_SYSTEM_NAME}}|$(lsb_release -ds)|g;s|{{UNAME_OUTPUT}}|$(uname -a)|g;s|{{NIX_VERSION}}|$(nix --version)|g;s|{{DIRENV_VERSION}}|direnv $(direnv version)|g" "$DESTINATION_DIR"/SYSTEM_INFO.txt >"$SCRATCH_FILE"
-cp "$SCRATCH_FILE" "$DESTINATION_DIR"/SYSTEM_INFO.txt
-
 # Remove .gitignore directive block that's only relevant for the template repo
 #
 awk '/^####+ BEGIN: REMOVE$/,/^####+ END: REMOVE$/ { next } 1' "$DESTINATION_DIR"/.gitignore >"$SCRATCH_FILE"
@@ -98,11 +95,11 @@ echo ""
 echo "  cd $DESTINATION_DIR"
 echo ""
 echo "Additional packages can be installed by editing the flake.nix"
-echo "(preferred), requirements.txt (Python), package.json (Node), or Gemfile"
-echo "(Ruby) files in the environment directory. The relevant components of"
-echo "the environment will be automatically rebuilt after you save any of"
-echo "these files. You may also want to update AGENTS.md with information"
-echo "about the engagement for any AI tools you may use."
+echo "(preferred), requirements.txt (Python), or package.json (Node) files in"
+echo "the environment directory. The relevant components of the environment"
+echo "will be automatically rebuilt after you save any of these files. You may"
+echo "also want to update AGENTS.md with information about the engagement for"
+echo "any AI tools you may use."
 echo ""
 echo "To back up the environment, simply run the provided backup-environment"
 echo "script. This backup will include all of your scripts and artifacts, and"

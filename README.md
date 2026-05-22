@@ -20,5 +20,3 @@ cd ~/Engagements/my_engagement
 The `msfconsole` wrapper will handle startup and shutdown of the associated PostgreSQL database automatically.
 
 The `browser` script can be used to launch an isolated (Ungoogled) Chromium browser pre-configured to proxy through localhost:8080.
-
-The `record` script can be used to initiate a recording of your terminal session.

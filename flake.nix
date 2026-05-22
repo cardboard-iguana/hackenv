@@ -66,16 +66,12 @@
             #### Python tooling ####
             (pkgs.python3.withPackages (pythonPackages: [
               pythonPackages.impacket
-              pythonPackages.shodan
             ]))
             uv
 
             #### Node.js ####
             nodejs
             pnpm
-
-            #### Ruby ####
-            ruby
 
             #### Various dependencies ####
             cmake
@@ -86,9 +82,6 @@
             #### Claude Code ####
             llmAgents.claude-code
             llmAgents.nono
-            ripgrep
-            socat
-            strace
 
             #### Formatters & Linters ####
             prettier
@@ -113,45 +106,29 @@
             typescript-language-server
 
             #### Useful tools ####
-            asciinema
             caido-cli
-            cewl
             curl
-            enum4linux-ng
             evil-winrm
             exploitdb
             freerdp
             gobuster
             hashcat
             hashcat-utils
-            ike-scan
             john
             kerbrute
             metasploit
             mimikatz
-            mitmproxy
-            nbtscan
             netcat-gnu
             netexec
-            nikto
             nmap
             openvpn
             powershell
             powersploit
             powerview
-            recon-ng
             responder
             rlwrap
-            samba
-            smbmap
+            socat
             solc-select
-            sqlite
-            sqlmap
-            termshark
-            thc-hydra
-            theharvester
-            tinyxxd
-            tshark
 
             #### GUI apps ####
             ungoogled-chromium
