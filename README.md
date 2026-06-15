@@ -1,3 +1,6 @@
+> [!important]
+> This repository has been [merged into my dotfiles](https://github.com/necopinus/dotfiles/blob/main/bundles/hacking/default.nix), as I've basically switched to using disposable VMs.
+
 # hackenv
 
 Automatically configure directory-based hacking / pentest environments. The successor to [Disposable Kali](https://github.com/cardboard-iguana/disposable-kali). Currently targets [Debian](https://debian.org) VMs (though any [FHS](https://refspecs.linuxfoundation.org/fhs.shtml)-comliant Linux distro should work).
